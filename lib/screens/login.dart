@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 class login extends StatefulWidget {
   @override
@@ -34,19 +35,23 @@ class _loginState extends State<login> {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 // wait database
                 onFieldSubmitted: (value){},
-                decoration: InputDecoration(labelText: 'Name',
+                decoration: InputDecoration(labelText: 'Email',
                     border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide(color: Colors.grey),),
                     focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black))
                 ),
-                keyboardType: TextInputType.name,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
+                keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    else if (!EmailValidator.validate(value)) {
+                      return 'Please enter a valid email';
+                    }
+                    return null;
                   }
-                  return null;
-                },
+
               ),
               SizedBox(height: 20),
               TextFormField(

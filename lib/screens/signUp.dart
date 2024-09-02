@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 class signUp extends StatefulWidget {
   @override
@@ -64,8 +65,13 @@ class _signUpState extends State<signUp> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
                   }
+                  else if (!EmailValidator.validate(value)) {
+                    return 'Please enter a valid email';
+                  }
                   return null;
-                },
+                }
+
+
               ),
               SizedBox(height: 20),
               TextFormField(
