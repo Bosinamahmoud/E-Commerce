@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(context),
+      appBar: getAppBar(),
       drawer: getDrawer(),
       bottomNavigationBar: getBottomNavigator(0, context),
       body: SingleChildScrollView(

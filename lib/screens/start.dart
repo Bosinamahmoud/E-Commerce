@@ -57,7 +57,7 @@ class start extends StatelessWidget {
             Row(        mainAxisAlignment: MainAxisAlignment.center,
 
               children: [
-                Text("I already have an account"), IconButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context)=>login(password: "",email: "",)));}, icon:Icon(Icons.arrow_forward_rounded,color: Colors.red,))
+                Text("I already have an account"), IconButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context)=>login()));}, icon:Icon(Icons.arrow_forward_rounded,color: Colors.red,))
               ],
             ),
            ],

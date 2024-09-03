@@ -2,9 +2,9 @@ import 'package:ecommerce/screens/Home.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 class login extends StatefulWidget {
-  String email="";
-  String password="";
-   login({super.key,required this.email, required this.password});
+  String email;
+  String password;
+   login({super.key, this.email="",  this.password=""});
 
   @override
 
@@ -15,9 +15,16 @@ class login extends StatefulWidget {
 class _loginState extends State<login> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
 
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  @override
+  void initState(){
+    super.initState();
+    _emailController = TextEditingController(text: widget.email);
+    _passwordController = TextEditingController(text: widget.password);
+  }
+
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
@@ -26,8 +33,6 @@ class _loginState extends State<login> {
 
   @override
   Widget build(BuildContext context) {
-    String email=widget.email;
-    String password=widget.password;
     return Scaffold(
       appBar: AppBar(title: Text(""),),
       body: Padding(
