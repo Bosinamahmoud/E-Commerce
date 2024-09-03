@@ -2,9 +2,9 @@ import 'package:ecommerce/screens/signUp.dart';
 import 'package:flutter/material.dart';
 
 import '../classes/Item.dart';
-import '../custom/appBar.dart';
-import '../custom/bottomNavigator.dart';
-import '../custom/drawer.dart';
+import '../customs/appBar.dart';
+import '../customs/bottomNavigator.dart';
+import '../customs/drawer.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
