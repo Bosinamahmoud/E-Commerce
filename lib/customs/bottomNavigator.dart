@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../screens/Home.dart';
-import '../screens/login.dart';
-import '../screens/signUp.dart';
+import '../screens/Cart.dart';
+import '../screens/history.dart';
 
 Widget getBottomNavigator(int screenIdx, context){
   List<Widget> screens=[
     Home(),
-    login(),
-    signUp(),
+    Cart(),
+    history(),
   ];
 
   Color c= Colors.red;
@@ -22,8 +22,9 @@ Widget getBottomNavigator(int screenIdx, context){
         Navigator.push(context, MaterialPageRoute(builder: (context)=>screens[index]));
       },
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
-        BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined),label: "Cart"),
-        BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
+        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home",),
+        BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined),label: "Cart",),
+        BottomNavigationBarItem(icon:
+        Icon(Icons.history,), label: "History"),
       ]);
 }
