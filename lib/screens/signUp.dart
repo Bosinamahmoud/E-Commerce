@@ -128,7 +128,22 @@ class _signUpState extends State<signUp> {
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.red,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
 
                     child: Text("SIGN UP",style: TextStyle(fontSize: 20,color: Colors.white),),
-                  ), )
+                  ), ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("already have an account ?"),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => login()));
+                        },
+                        icon: Icon(
+                          Icons.arrow_forward_rounded,
+                          color: Colors.red,
+                        ))
+                  ],
+                ),
               ],
             ),
           ),
