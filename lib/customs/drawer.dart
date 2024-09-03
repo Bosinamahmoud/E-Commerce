@@ -1,8 +1,12 @@
+import 'package:ecommerce/providers/ThemeProvider.dart';
+import 'package:ecommerce/themes/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 Widget getDrawer(){
   Color c= Colors.red;
-  return Drawer(
+  return Consumer<Themeprovider>(builder: (context,provider,child){return
+    Drawer(
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -13,7 +17,7 @@ Widget getDrawer(){
               children: [
                 Align(
                     alignment: Alignment.topRight,
-                    child: IconButton(onPressed: (){}, icon: Icon(Icons.dark_mode_outlined, color: c))
+                    child: IconButton(onPressed: (){ provider.toggelTheme();}, icon: Icon(Icons.dark_mode_outlined, color: c))
                 ),
                 Row(
                   children: [
@@ -37,6 +41,6 @@ Widget getDrawer(){
           ),
         ],
       ),
-    ),
+    ));}
   );
 }

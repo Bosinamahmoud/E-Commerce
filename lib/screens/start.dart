@@ -1,12 +1,16 @@
+import 'package:ecommerce/providers/ThemeProvider.dart';
 import 'package:ecommerce/screens/login.dart';
 import 'package:ecommerce/screens/signUp.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class start extends StatelessWidget {
-  const start({super.key});
-
+   start({super.key});
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<Themeprovider>(context);
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -14,6 +18,12 @@ class start extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+             /* CupertinoSwitch(
+                onChanged: (value) {
+                  provider.toggelTheme();
+                },
+                value: provider.isLight,
+              ),*/
               Center(
                   child: Container(
                 decoration: BoxDecoration(
