@@ -31,7 +31,7 @@ class Cart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBar(),
+        appBar: AppBar(title: Text(""),),
         drawer: getDrawer(),
         bottomNavigationBar: getBottomNavigator(context , 1),
 //backgroundColor: Colors.white,

@@ -8,7 +8,7 @@ class history extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(),
+      appBar: AppBar(),
       drawer: getDrawer(),
 
       bottomNavigationBar: getBottomNavigator(context , 0),
