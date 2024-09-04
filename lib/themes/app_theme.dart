@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+const COLOER_PRIMARY=Colors.blue;
+ThemeData lightTheme =ThemeData(
+brightness: Brightness.light
 
-class theme extends ChangeNotifier {
-   bool isLight=true;
-   void toggelTheme(){
-      isLight=!isLight;
-      notifyListeners();
-   }
-}
+);
+ThemeData darkTheme =ThemeData(
+    brightness: Brightness.dark,
+
+);

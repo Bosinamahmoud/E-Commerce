@@ -1,4 +1,5 @@
 import 'package:ecommerce/screens/Home.dart';
+import 'package:ecommerce/screens/forgetPassword.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 class login extends StatefulWidget {
@@ -119,7 +120,22 @@ class _loginState extends State<login> {
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.red,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
 
                   child: Text("LOGIN",style: TextStyle(fontSize: 20,color: Colors.white),),
-                ), )
+                ), ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Forgot your Password ?"),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => forgetPassword()));
+                        },
+                        icon: Icon(
+                          Icons.arrow_forward_rounded,
+                          color: Colors.red,
+                        ))
+                  ],
+                ),
 
               ],
             ),

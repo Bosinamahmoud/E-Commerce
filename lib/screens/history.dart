@@ -5,6 +5,12 @@ class history extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+      title: Text(
+        "history",
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+      ),
+    ),);
   }
 }

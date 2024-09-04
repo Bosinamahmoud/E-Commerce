@@ -1,12 +1,21 @@
+import 'package:ecommerce/providers/ThemeProvider.dart';
+import 'package:ecommerce/providers/userProvider.dart';
+import 'package:ecommerce/themes/app_theme.dart';
 import 'package:ecommerce/classes/ScreenName.dart';
 import 'package:ecommerce/screens/Cart.dart';
 import 'package:ecommerce/screens/history.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/Home.dart';
 
 Widget getDrawer(){
   Color c= Colors.red;
+  return Consumer<Themeprovider>(builder: (context,provider,child){
+    final userprovider = Provider.of<userProvider>(context);
+
+    return
+    Drawer(
 
   List<ScreenName>screens=[
     ScreenName(name: "Home", screen: Home(username: 'Touka')),
@@ -26,7 +35,7 @@ Widget getDrawer(){
               children: [
                 Align(
                     alignment: Alignment.topRight,
-                    child: IconButton(onPressed: (){}, icon: Icon(Icons.dark_mode_outlined, color: c))
+                    child: IconButton(onPressed: (){ provider.toggelTheme();}, icon: Icon(Icons.dark_mode_outlined, color: c))
                 ),
                 Row(
                   children: [
@@ -37,7 +46,8 @@ Widget getDrawer(){
                     ),
                     Column(
                       children: [
-                        Text("Hi, Touka!"),
+                        Text("${userprovider.name}"),
+                        Text("  ${userprovider.email}"),
                         SizedBox(height: 8),
                         Text("View Profile")
                       ],
@@ -62,6 +72,6 @@ Widget getDrawer(){
           )
         ],
       ),
-    ),
+    ));}
   );
 }
