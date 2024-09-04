@@ -11,7 +11,7 @@ class history extends StatelessWidget {
       appBar: AppBar(),
       drawer: getDrawer(),
 
-      bottomNavigationBar: getBottomNavigator(context , 0),
+      bottomNavigationBar: getBottomNavigator(context , 2),
       body:   Column(
         children: [
           Text(
