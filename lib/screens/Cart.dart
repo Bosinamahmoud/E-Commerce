@@ -4,28 +4,36 @@ import 'package:ecommerce/customs/drawer.dart';
 import 'package:ecommerce/screens/Checkout.dart';
 import 'package:flutter/material.dart';
 
+import '../classes/Item.dart';
+
 class Cart extends StatelessWidget {
   Cart({super.key});
 
-  final List product = [
-   // {"name": "Bag", "image": "assets/Bag.jpg", "details": "Details"},
-    {"name": "blackBag", "image": "assets/blackBag.jpg", "details": "Details"},
-   /* {
-      "name": "blackShoes",
-      "image": "assets/blackShoes.jpg",
-      "details": "Details"
-    },*/
-    {"name": "greyBag", "image": "assets/greyBag.jpg", "details": "Details"},
-    {
-      "name": "RoseBlouse",
-      "image": "assets/RoseBlouse.jpg",
-      "details": "Details"
-    },
-    /*{
-      "name": "whiteShoes",
-      "image": "assets/whiteShoes.jpg",
-      "details": "Details"
-    },*/
+  List<Item> items = [
+    Item(
+        title: 'Shirt',
+        description: 'description',
+        price: 200,
+        q: 2,
+        star: 3,
+        path: 'assets/T-shirt1.jpg',
+        category: Category(type: "Fashion", color: Colors.pink)),
+    Item(
+        title: 'Computer',
+        description: 'description',
+        price: 200,
+        q: 2,
+        star: 5,
+        path: 'assets/computer1.jpg',
+        category: Category(type: "Electronics", color: Colors.blue)),
+    Item(
+        title: 'Broom',
+        description: 'description',
+        price: 200,
+        q: 2,
+        star: 1,
+        path: 'assets/broom1.jpg',
+        category: Category(type: "Home Appliances", color: Colors.deepPurple)),
   ];
 
   @override
@@ -33,40 +41,76 @@ class Cart extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: Text(""),),
         drawer: getDrawer(),
-        bottomNavigationBar: getBottomNavigator(context , 1),
+        bottomNavigationBar: getBottomNavigator(context, 1),
 //backgroundColor: Colors.white,
         body: Stack(children: [
           ListView.builder(
-            itemCount: product.length,
+            itemCount: items.length,
             itemBuilder: (context, index) {
-              return Row(
-                children: [
-                  Image.asset(
-                    product[index]["image"],
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.width / 2,
-                    fit: BoxFit.fill,
-                  ),
-                  Column(
+              Item item = items[index];
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          blurRadius: 5,
+                        )
+                      ]),
+                  child: Row(
                     children: [
-                      Text(product[index]["name"]),
-                      Text(product[index]["details"]),Text("price"),
-                      Row(
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          item.path,
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          height: MediaQuery.of(context).size.width / 2,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 35
+                      ),
+                      Column(
                         children: [
-                          Container(
-                            decoration: BoxDecoration(color:  Theme.of(context).primaryColor,
-                            shape: BoxShape.circle),
-                              child: Icon(Icons.remove,)
-                          ),
-                          Text("number"),
-                          Container(child: Icon(Icons.add),decoration: BoxDecoration(color:  Theme.of(context).primaryColor,
-                              shape: BoxShape.circle),),
+                          Text(item.title,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                          Text("${item.price}\$",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor:  Theme.of(context).primaryColor,
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.remove,
+                                    color: Theme.of(context).scaffoldBackgroundColor,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                child: Text("1",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                              ),
+                              CircleAvatar(
+                                backgroundColor:  Theme.of(context).primaryColor,
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: Theme.of(context).scaffoldBackgroundColor,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
                         ],
                       )
-
                     ],
-                  )
-                ],
+                  ),
+                ),
               );
 
             },
@@ -79,11 +123,12 @@ class Cart extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor:  Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Checkout()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Checkout()));
                 },
                 child: Text(
                   "CHECKOUT",
