@@ -1,6 +1,8 @@
+import 'package:ecommerce/providers/userProvider.dart';
 import 'package:ecommerce/screens/login.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 class signUp extends StatefulWidget {
   @override
   _signUpState createState() => _signUpState();
@@ -22,6 +24,9 @@ class _signUpState extends State<signUp> {
 
   @override
   Widget build(BuildContext context) {
+    final userprovider = Provider.of<userProvider>(context);
+    final emailprovider = Provider.of<userProvider>(context);
+
     return Scaffold(
       appBar: AppBar(title: Text(""),),
       body: Padding(
@@ -37,6 +42,9 @@ class _signUpState extends State<signUp> {
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
                 SizedBox(height: 20),
                 TextFormField(
+                  onChanged: (value) {
+                    userprovider.setName(value);
+                  },
                   controller: _nameController,
                   onTapOutside: (value){
                     FocusScope.of(context).requestFocus(FocusNode());
@@ -59,6 +67,9 @@ class _signUpState extends State<signUp> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                    onChanged: (value) {
+                     emailprovider.setEmail(value);
+                    },
                   controller: _emailController,
                   onTapOutside: (value){
                     FocusScope.of(context).requestFocus(FocusNode());
