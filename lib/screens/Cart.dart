@@ -53,12 +53,12 @@ class Cart extends StatelessWidget {
                       Row(
                         children: [
                           Container(
-                            decoration: BoxDecoration(color: Colors.red,
+                            decoration: BoxDecoration(color:  Theme.of(context).primaryColor,
                             shape: BoxShape.circle),
                               child: Icon(Icons.remove,)
                           ),
                           Text("number"),
-                          Container(child: Icon(Icons.add),decoration: BoxDecoration(color: Colors.red,
+                          Container(child: Icon(Icons.add),decoration: BoxDecoration(color:  Theme.of(context).primaryColor,
                               shape: BoxShape.circle),),
                         ],
                       )
@@ -83,7 +83,7 @@ class Cart extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    backgroundColor:  Theme.of(context).primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
                 onPressed: () {

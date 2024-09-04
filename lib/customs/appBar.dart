@@ -7,10 +7,10 @@ PreferredSizeWidget getAppBar() {
   Color c = Colors.red;
 
   return AppBar(
-    //backgroundColor: Colors.white,
+   // backgroundColor: Theme.of(context).primaryColor,
     title: Text(
       "Shoppe",
-      style: TextStyle(color: c, fontWeight: FontWeight.bold),
+      style: TextStyle( fontWeight: FontWeight.bold),
     ),
     centerTitle: true,
     leading: Builder(builder: (context) {
@@ -18,7 +18,7 @@ PreferredSizeWidget getAppBar() {
           onPressed: () {
             Scaffold.of(context).openDrawer();
           },
-          icon: Icon(Icons.menu, color: c));
+          icon: Icon(Icons.menu, color:  Theme.of(context).primaryColor));
     }),
     actions: [
       Builder(builder: (context) {
@@ -29,7 +29,7 @@ PreferredSizeWidget getAppBar() {
                     return Filter();
               });
             },
-            icon: Icon(Icons.filter_list_outlined, color: c));
+            icon: Icon(Icons.filter_list_outlined, color:  Theme.of(context).primaryColor));
       }),
     ],
   );

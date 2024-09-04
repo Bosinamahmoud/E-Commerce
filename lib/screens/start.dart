@@ -12,6 +12,8 @@ class start extends StatelessWidget {
     final provider = Provider.of<Themeprovider>(context);
 
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
@@ -42,7 +44,7 @@ class start extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.shopping_bag, // استخدم الرمز المناسب
-                    color: Colors.red,
+                       color:  Theme.of(context).primaryColor,
                     size: 100,
                   ),
                 ),
@@ -63,7 +65,7 @@ class start extends StatelessWidget {
                     // Action to perform when button is pressed
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
+                      backgroundColor:  Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
                   child: Text(
@@ -84,7 +86,7 @@ class start extends StatelessWidget {
                       },
                       icon: Icon(
                         Icons.arrow_forward_rounded,
-                        color: Colors.red,
+                        color:  Theme.of(context).primaryColor,
                       ))
                 ],
               ),

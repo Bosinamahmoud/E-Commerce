@@ -73,7 +73,7 @@ class forgetPassword extends StatelessWidget {
                       // Action to perform when button is pressed
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
+                        backgroundColor:  Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     child: Text(

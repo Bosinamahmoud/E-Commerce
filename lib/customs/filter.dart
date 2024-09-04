@@ -11,7 +11,6 @@ class Filter extends StatefulWidget {
 }
 
 class _FilterState extends State<Filter> {
-  Color c = Colors.red;
 
   List<Category> categories = [
     Category(type: "Fashion", color: Colors.pink),
@@ -69,7 +68,7 @@ class _FilterState extends State<Filter> {
                   max: 9999,
                   min: 0,
                   divisions: 1000,
-                  activeColor: c,
+                  activeColor: Theme.of(context).primaryColor,
                   inactiveColor: Colors.grey[400],
                   labels: RangeLabels(rangedValues.start.round().toString(),
                       rangedValues.end.round().toString()),
@@ -88,7 +87,7 @@ class _FilterState extends State<Filter> {
                           fontWeight: FontWeight.w600,
                           fontSize: 15)),
                   value: isPriceChecked,
-                  activeColor: c,
+                  activeColor: Theme.of(context).primaryColor,
                   onChanged: (value) {
                     setState(() {
                       isPriceChecked = value!;
@@ -107,7 +106,7 @@ class _FilterState extends State<Filter> {
                                     color: Colors.grey[400],
                                     fontWeight: FontWeight.w600,
                                     fontSize: 12)),
-                            activeColor: c,
+                            activeColor: Theme.of(context).primaryColor,
                             value: true,
                             groupValue: selectedPriceRadio,
                             onChanged: (value) {
@@ -123,7 +122,7 @@ class _FilterState extends State<Filter> {
                                     color: Colors.grey[400],
                                     fontWeight: FontWeight.w600,
                                     fontSize: 12)),
-                            activeColor: c,
+                            activeColor: Theme.of(context).primaryColor,
                             value: false,
                             groupValue: selectedPriceRadio,
                             onChanged: (value) {
@@ -147,7 +146,7 @@ class _FilterState extends State<Filter> {
                           fontWeight: FontWeight.w600,
                           fontSize: 15)),
                   value: isPopularChecked,
-                  activeColor: c,
+                  activeColor: Theme.of(context).primaryColor,
                   onChanged: (value) {
                     setState(() {
                       isPopularChecked = value!;
@@ -166,7 +165,7 @@ class _FilterState extends State<Filter> {
                                     color: Colors.grey[400],
                                     fontWeight: FontWeight.w600,
                                     fontSize: 12)),
-                            activeColor: c,
+                            activeColor: Theme.of(context).primaryColor,
                             value: true,
                             groupValue: selectedPopularRadio,
                             onChanged: (value) {
@@ -182,7 +181,7 @@ class _FilterState extends State<Filter> {
                                     color: Colors.grey[400],
                                     fontWeight: FontWeight.w600,
                                     fontSize: 12)),
-                            activeColor: c,
+                            activeColor: Theme.of(context).primaryColor,
                             value: false,
                             groupValue: selectedPopularRadio,
                             onChanged: (value) {
@@ -202,7 +201,7 @@ class _FilterState extends State<Filter> {
               Center(
                 child: TextButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(c),
+                    backgroundColor: MaterialStateProperty.all( Theme.of(context).primaryColor),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
                     )
                   ),
@@ -258,8 +257,8 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         onTap: () {
           setState(() {
             isSelected = !isSelected;
-            textColor = isSelected ? Colors.white : Colors.red;
-            bgColor = !isSelected ? Colors.white : Colors.red;
+            textColor = isSelected ? Colors.white :  Theme.of(context).primaryColor;
+            bgColor = !isSelected ? Colors.white :  Theme.of(context).primaryColor;
           });
         },
       ),

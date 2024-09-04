@@ -11,7 +11,7 @@ Widget getBottomNavigator(int screenIdx, context){
     history(),
   ];
 
-  Color c= Colors.red;
+  Color c=  Theme.of(context).primaryColor;
 
   return BottomNavigationBar(
     //backgroundColor: Colors.white,

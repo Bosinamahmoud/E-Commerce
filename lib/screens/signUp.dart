@@ -136,7 +136,7 @@ class _signUpState extends State<signUp> {
                       //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>signUp()));
                       // Action to perform when button is pressed
                     },
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                    style: ElevatedButton.styleFrom(backgroundColor:  Theme.of(context).primaryColor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
 
                     child: Text("SIGN UP",style: TextStyle(fontSize: 20,color: Colors.white),),
                   ), ),
@@ -151,7 +151,7 @@ class _signUpState extends State<signUp> {
                         },
                         icon: Icon(
                           Icons.arrow_forward_rounded,
-                          color: Colors.red,
+                          color:  Theme.of(context).primaryColor,
                         ))
                   ],
                 ),

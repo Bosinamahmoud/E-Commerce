@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
       appBar: getAppBar(),
       drawer: getDrawer(),
       bottomNavigationBar: getBottomNavigator(0, context),
-      //backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -190,7 +190,7 @@ class _ItemsGridState extends State<ItemsGrid> {
               Padding(
                 padding: EdgeInsets.only(left: 122, top: 155),
                 child: CircleAvatar(
-                  backgroundColor: c,
+                  backgroundColor:  Theme.of(context).primaryColor,
                   child: IconButton(
                     onPressed: () { setState((){
                       print(isCartPressed);
@@ -240,7 +240,7 @@ class _ItemsGridState extends State<ItemsGrid> {
                       Text(
                         "${item.quantity}",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.red),
+                            fontWeight: FontWeight.bold, color:  Theme.of(context).primaryColor),
                       )
                     ],
                   ),

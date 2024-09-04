@@ -34,13 +34,13 @@ Widget getDrawer(){
               children: [
                 Align(
                     alignment: Alignment.topRight,
-                    child: IconButton(onPressed: (){ provider.toggelTheme();}, icon: Icon(Icons.dark_mode_outlined, color: c))
+                    child: IconButton(onPressed: (){ provider.toggelTheme();}, icon: Icon(Icons.dark_mode_outlined, color:  Theme.of(context).primaryColor))
                 ),
                 Row(
                   children: [
                     CircleAvatar(
                       radius: 30,
-                      backgroundColor: c,
+                      backgroundColor:  Theme.of(context).primaryColor,
                       child: Icon(Icons.person, color: Colors.white, size: 50,),
                     ),
                     Column(
