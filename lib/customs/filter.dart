@@ -11,26 +11,34 @@ class Filter extends StatefulWidget {
 }
 
 class _FilterState extends State<Filter> {
+  Color c = Colors.red;
+
   List<Category> categories = [
     Category(type: "Fashion", color: Colors.pink),
     Category(type: "Electronics", color: Colors.blue),
     Category(type: "Home Appliances", color: Colors.deepPurple)
   ];
-  var rangedValues = RangeValues(0.1, 99999);
+
+  var rangedValues = RangeValues(0.1, 9999);
+  bool isPriceChecked = false;
+  bool selectedPriceRadio = true;
+
+  bool isPopularChecked = false;
+  bool selectedPopularRadio = true;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(
-          height: MediaQuery.of(context).size.height * 0.5,
+          height: MediaQuery.of(context).size.height * 0.7,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
                   child: Text("Filter By",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15))),
+                          fontWeight: FontWeight.bold, fontSize: 15))),
               SizedBox(height: 15),
               Text("Categories",
                   style: TextStyle(
@@ -42,14 +50,14 @@ class _FilterState extends State<Filter> {
                 height: 50,
                 child: ListView.builder(
                   itemBuilder: (context, int index) {
-                    return CategoriesWidget(
-                        category: categories[index]);
+                    return CategoriesWidget(category: categories[index]);
                   },
                   itemCount: categories.length,
                   scrollDirection: Axis.horizontal,
                 ),
               ),
               SizedBox(height: 15),
+
               Text("Prices",
                   style: TextStyle(
                       color: Colors.grey[400],
@@ -58,17 +66,153 @@ class _FilterState extends State<Filter> {
               SizedBox(height: 10),
               RangeSlider(
                   values: rangedValues,
-                  max: 99999,
+                  max: 9999,
                   min: 0,
-                  divisions: 5,
-                  labels: RangeLabels(
-                      rangedValues.start.round().toString(),
+                  divisions: 1000,
+                  activeColor: c,
+                  inactiveColor: Colors.grey[400],
+                  labels: RangeLabels(rangedValues.start.round().toString(),
                       rangedValues.end.round().toString()),
                   onChanged: (RangeValues values) {
                     setState(() {
-                      rangedValues=values;
+                      rangedValues = values;
                     });
-                  }
+                  }),
+
+              SizedBox(height: 15),
+
+              CheckboxListTile(
+                  title: Text("Sort Price",
+                      style: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15)),
+                  value: isPriceChecked,
+                  activeColor: c,
+                  onChanged: (value) {
+                    setState(() {
+                      isPriceChecked = value!;
+                    });
+                  }),
+              if (isPriceChecked) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: RadioListTile<bool>(
+                            title: Text("ascending",
+                                style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12)),
+                            activeColor: c,
+                            value: true,
+                            groupValue: selectedPriceRadio,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedPriceRadio = value!;
+                              });
+                            }),
+                      ),
+                      Expanded(
+                        child: RadioListTile<bool>(
+                            title: Text("descending",
+                                style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12)),
+                            activeColor: c,
+                            value: false,
+                            groupValue: selectedPriceRadio,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedPriceRadio = value!;
+                              });
+                            }),
+                      ),
+                    ],
+                  ),
+                )
+
+              ],
+
+              SizedBox(height: 15),
+
+              CheckboxListTile(
+                  title: Text("Sort Popularity",
+                      style: TextStyle(
+                          color: Colors.grey[400],
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15)),
+                  value: isPopularChecked,
+                  activeColor: c,
+                  onChanged: (value) {
+                    setState(() {
+                      isPopularChecked = value!;
+                    });
+                  }),
+              if (isPopularChecked) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: RadioListTile<bool>(
+                            title: Text("ascending",
+                                style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12)),
+                            activeColor: c,
+                            value: true,
+                            groupValue: selectedPopularRadio,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedPopularRadio = value!;
+                              });
+                            }),
+                      ),
+                      Expanded(
+                        child: RadioListTile<bool>(
+                            title: Text("descending",
+                                style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12)),
+                            activeColor: c,
+                            value: false,
+                            groupValue: selectedPopularRadio,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedPopularRadio = value!;
+                              });
+                            }),
+                      ),
+                    ],
+                  ),
+                )
+
+              ],
+
+              SizedBox(height: 15),
+
+              Center(
+                child: TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(c),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+                    )
+                  ),
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    child: Text("Apply Filter", style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15))),
               )
             ],
           )),

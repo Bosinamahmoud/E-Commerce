@@ -7,6 +7,7 @@ PreferredSizeWidget getAppBar() {
   Color c = Colors.red;
 
   return AppBar(
+    backgroundColor: Colors.white,
     title: Text(
       "Shoppe",
       style: TextStyle(color: c, fontWeight: FontWeight.bold),

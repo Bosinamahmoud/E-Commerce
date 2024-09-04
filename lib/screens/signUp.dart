@@ -120,7 +120,7 @@ class _signUpState extends State<signUp> {
                     onPressed: () {
                       if(_formKey.currentState!.validate()) {
                         Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => login(email: _emailController.text,password: _passwordController.text,)));
+                            MaterialPageRoute(builder: (context) => login(email: _emailController.text,password: _passwordController.text, name: _nameController.text,)));
                       }
                       //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>signUp()));
                       // Action to perform when button is pressed

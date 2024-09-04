@@ -1,3 +1,6 @@
+import 'package:ecommerce/customs/appBar.dart';
+import 'package:ecommerce/customs/bottomNavigator.dart';
+import 'package:ecommerce/customs/drawer.dart';
 import 'package:flutter/material.dart';
 
 class Cart extends StatelessWidget {
@@ -27,12 +30,10 @@ class Cart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Cart",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-          ),
-        ),
+        appBar: getAppBar(),
+        drawer: getDrawer(),
+        bottomNavigationBar: getBottomNavigator(1, "Touka", context),
+backgroundColor: Colors.white,
         body: Stack(children: [
           ListView.builder(
             itemCount: product.length,

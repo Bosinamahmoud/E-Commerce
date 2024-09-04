@@ -5,6 +5,7 @@ class Item{
   String description;
   double price;
   late String quantity;
+  late int star;
   String path;
   Category category;
 
@@ -13,6 +14,7 @@ class Item{
         required this.description,
         required this.price,
         required int q,
+        this.star=3,
         required this.path,
         required this.category}){
         quantity="$q left";
