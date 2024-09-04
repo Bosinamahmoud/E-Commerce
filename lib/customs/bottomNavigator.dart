@@ -4,9 +4,9 @@ import '../screens/Home.dart';
 import '../screens/Cart.dart';
 import '../screens/history.dart';
 
-Widget getBottomNavigator(int screenIdx, String username, context){
+Widget getBottomNavigator(int screenIdx, context){
   List<Widget> screens=[
-    Home(username:username),
+    Home(),
     Cart(),
     history(),
   ];
@@ -14,7 +14,7 @@ Widget getBottomNavigator(int screenIdx, String username, context){
   Color c= Colors.red;
 
   return BottomNavigationBar(
-    backgroundColor: Colors.white,
+    //backgroundColor: Colors.white,
       selectedItemColor: c,
       unselectedItemColor: Colors.grey[350],
       currentIndex: screenIdx,

@@ -7,9 +7,9 @@ import '../customs/bottomNavigator.dart';
 import '../customs/drawer.dart';
 
 class Home extends StatefulWidget {
-  final String username;
 
-  const Home({super.key, required this.username});
+
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -77,15 +77,14 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    String username = widget.username;
 
     double h = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: getAppBar(),
       drawer: getDrawer(),
-      bottomNavigationBar: getBottomNavigator(0, username, context),
-      backgroundColor: Colors.white,
+      bottomNavigationBar: getBottomNavigator(0, context),
+      //backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
             padding: const EdgeInsets.all(12.0),

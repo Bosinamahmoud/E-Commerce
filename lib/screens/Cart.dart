@@ -32,8 +32,8 @@ class Cart extends StatelessWidget {
     return Scaffold(
         appBar: getAppBar(),
         drawer: getDrawer(),
-        bottomNavigationBar: getBottomNavigator(1, "Touka", context),
-backgroundColor: Colors.white,
+        bottomNavigationBar: getBottomNavigator(1, context),
+//backgroundColor: Colors.white,
         body: Stack(children: [
           ListView.builder(
             itemCount: product.length,
@@ -44,6 +44,7 @@ backgroundColor: Colors.white,
                     product[index]["image"],
                     width: MediaQuery.of(context).size.width / 2,
                     height: MediaQuery.of(context).size.width / 2,
+                    fit: BoxFit.fill,
                   ),
                   Column(
                     children: [

@@ -19,14 +19,13 @@ class _loginState extends State<login> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
-  late String name;
+
 
   @override
   void initState(){
     super.initState();
     _emailController = TextEditingController(text: widget.email);
     _passwordController = TextEditingController(text: widget.password);
-    name=widget.name;
   }
 
   void _togglePasswordVisibility() {
@@ -110,7 +109,7 @@ class _loginState extends State<login> {
                   onPressed: () {
                     if(_formKey.currentState!.validate()) {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Home(username:name)));
+                          MaterialPageRoute(builder: (context) => Home()));
                     }
                   //  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home()));
 

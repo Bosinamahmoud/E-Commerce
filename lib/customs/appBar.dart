@@ -7,7 +7,7 @@ PreferredSizeWidget getAppBar() {
   Color c = Colors.red;
 
   return AppBar(
-    backgroundColor: Colors.white,
+    //backgroundColor: Colors.white,
     title: Text(
       "Shoppe",
       style: TextStyle(color: c, fontWeight: FontWeight.bold),
@@ -25,7 +25,7 @@ PreferredSizeWidget getAppBar() {
         return IconButton(
             onPressed: () {
               Scaffold.of(context)
-                  .showBottomSheet(backgroundColor: Colors.white, (context) {
+                  .showBottomSheet((context) {
                     return Filter();
               });
             },

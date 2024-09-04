@@ -11,20 +11,19 @@ import '../screens/Home.dart';
 
 Widget getDrawer(){
   Color c= Colors.red;
-  return Consumer<Themeprovider>(builder: (context,provider,child){
-    final userprovider = Provider.of<userProvider>(context);
-
-    return
-    Drawer(
 
   List<ScreenName>screens=[
-    ScreenName(name: "Home", screen: Home(username: 'Touka')),
+    ScreenName(name: "Home", screen: Home()),
     ScreenName(name: "My Cart", screen: Cart()),
     ScreenName(name: "My History", screen: history()),
 
   ];
+
+  return Consumer<Themeprovider>(builder: (context,provider,child){
+    final userprovider = Provider.of<userProvider>(context);
+
   return Drawer(
-    backgroundColor: Colors.white,
+    //backgroundColor: Colors.white,
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
