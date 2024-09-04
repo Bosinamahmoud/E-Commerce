@@ -68,12 +68,7 @@ class Cart extends StatelessWidget {
                   )
                 ],
               );
-              /*ListTile(
-                //Image.asset(product[index]["image"],width:100 ,)
-                title:Text(product[index]["name"] ,
-                  // subtitle:
-                ) ,
-              );*/
+
             },
           ),
           Positioned(
