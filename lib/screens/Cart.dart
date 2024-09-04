@@ -1,6 +1,7 @@
 import 'package:ecommerce/customs/appBar.dart';
 import 'package:ecommerce/customs/bottomNavigator.dart';
 import 'package:ecommerce/customs/drawer.dart';
+import 'package:ecommerce/screens/Checkout.dart';
 import 'package:flutter/material.dart';
 
 class Cart extends StatelessWidget {
@@ -32,7 +33,7 @@ class Cart extends StatelessWidget {
     return Scaffold(
         appBar: getAppBar(),
         drawer: getDrawer(),
-        bottomNavigationBar: getBottomNavigator(1, context),
+        bottomNavigationBar: getBottomNavigator(context , 1),
 //backgroundColor: Colors.white,
         body: Stack(children: [
           ListView.builder(
@@ -87,7 +88,7 @@ class Cart extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
                 onPressed: () {
-                  // Action for the button
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Checkout()));
                 },
                 child: Text(
                   "CHECKOUT",

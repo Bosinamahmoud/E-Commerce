@@ -4,7 +4,7 @@ import '../screens/Home.dart';
 import '../screens/Cart.dart';
 import '../screens/history.dart';
 
-Widget getBottomNavigator(int screenIdx, context){
+Widget getBottomNavigator(context, [int screenIdx=1]){
   List<Widget> screens=[
     Home(),
     Cart(),

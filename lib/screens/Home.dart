@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: getAppBar(),
       drawer: getDrawer(),
-      bottomNavigationBar: getBottomNavigator(0, context),
+      bottomNavigationBar: getBottomNavigator(context , 0),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
@@ -162,7 +162,7 @@ class _ItemsGridState extends State<ItemsGrid> {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: Colors.white,
+          //color: Colors.white,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
