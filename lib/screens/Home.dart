@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:ecommerce/screens/itemDescription.dart';
 import 'package:ecommerce/screens/signUp.dart';
 import 'package:ecommerce/service/items_service.dart';
 import 'package:flutter/material.dart';
@@ -135,97 +136,102 @@ class _ItemsGridState extends State<ItemsGrid> {
     final Item item = widget.item;
     double h = MediaQuery.of(context).size.height;
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: Theme.of(context).scaffoldBackgroundColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            blurRadius: 5,
-          )
-        ],
-      ),
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                  bottomLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8),
-                ),
-                child: Image.network(
-                  "${item.path}",
-                  width: 200,
-                  height: h * 0.23,
-                  fit: BoxFit.fill,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 122, top: 155),
-                child: CircleAvatar(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isCartPressed = !isCartPressed;
-                      });
-                    },
-                    icon: Icon(
-                      isCartPressed ? Icons.shopping_cart : Icons.shopping_cart_outlined,
-                      color: Colors.white,
-                    ),
+    return GestureDetector(
+      onTap: (){
+Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductDetailPage()));
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: Theme.of(context).scaffoldBackgroundColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              blurRadius: 5,
+            )
+          ],
+        ),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(8),
+                    bottomRight: Radius.circular(8),
+                  ),
+                  child: Image.network(
+                    "${item.path}",
+                    width: 200,
+                    height: h * 0.23,
+                    fit: BoxFit.fill,
                   ),
                 ),
-              )
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: List.generate(5, (index) {
-                    return Icon(
-                      (index < item.star) ? Icons.star : Icons.star_border,
-                      color: Colors.yellow[600],
-                      size: 18,
-                    );
-                  }),
-                ),
-                Text(
-                  item.title,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                Text(
-                  item.category.type,
-                  style: TextStyle(color: Colors.grey[400]),
-                ),
-                SizedBox(height: 3),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("${item.price}\$",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text(
-                        "${item.quantity}",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).primaryColor),
-                      )
-                    ],
+                  padding: EdgeInsets.only(left: 122, top: 155),
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isCartPressed = !isCartPressed;
+                        });
+                      },
+                      icon: Icon(
+                        isCartPressed ? Icons.shopping_cart : Icons.shopping_cart_outlined,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 )
               ],
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: List.generate(5, (index) {
+                      return Icon(
+                        (index < item.star) ? Icons.star : Icons.star_border,
+                        color: Colors.yellow[600],
+                        size: 18,
+                      );
+                    }),
+                  ),
+                  Text(
+                    item.title,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  Text(
+                    item.category.type,
+                    style: TextStyle(color: Colors.grey[400]),
+                  ),
+                  SizedBox(height: 3),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("${item.price}\$",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                          "${item.quantity}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).primaryColor),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
