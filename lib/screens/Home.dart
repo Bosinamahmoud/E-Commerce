@@ -96,7 +96,8 @@ class _HomeState extends State<Home> {
               ),
               SizedBox(height: 10),
               GridView.count(
-                childAspectRatio: 0.545,
+
+                childAspectRatio: 0.502,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
@@ -104,7 +105,11 @@ class _HomeState extends State<Home> {
                 mainAxisSpacing: 15.0,
                 children: items.map((item) => ItemsGrid(item: item)).toList(),
               ),
-            ],
+
+
+
+
+          ],
           ),
         ),
       ),
