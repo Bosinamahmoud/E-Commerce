@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:ecommerce/classes/product_search_delegate.dart';
 import 'package:ecommerce/screens/itemDescription.dart';
 import 'package:ecommerce/screens/signUp.dart';
 import 'package:ecommerce/service/items_service.dart';
@@ -48,7 +49,11 @@ class _HomeState extends State<Home> {
     double h = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: getAppBar(),
+      appBar: AppBar(
+        actions: [IconButton(onPressed: (){
+          showSearch(context: context, delegate: productSearchDelegate(items: items));
+        }, icon: Icon(Icons.search))],
+      ),
       drawer: getDrawer(),
       bottomNavigationBar: getBottomNavigator(context, 0),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -58,6 +63,20 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+             /* TextFormField(
+
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  hintText: 'Search...',
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20),)
+                ),
+                onChanged: (value) {
+                 showSearch(context: context, delegate: productSearchDelegate());
+                },
+              ),
+              SizedBox(height: 10),
+*/
               Text(
                 "TRENDING",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
@@ -103,8 +122,10 @@ class _HomeState extends State<Home> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 12.0,
                 mainAxisSpacing: 15.0,
-                children: items.map((item) => GestureDetector(
-                    child: ItemsGrid(item: item))).toList(),
+                children: items
+                    .map(
+                        (item) => GestureDetector(child: ItemsGrid(item: item)))
+                    .toList(),
               ),
             ],
           ),
@@ -252,8 +273,8 @@ class ItemsGrid extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => ProductDetailPage(
-           item1: item,
-            )));
+                  item1: item,
+                )));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -344,7 +365,6 @@ class ItemsGrid extends StatelessWidget {
           ],
         ),
       ),
-
     );
   }
 }
