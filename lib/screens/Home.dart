@@ -97,20 +97,16 @@ class _HomeState extends State<Home> {
               ),
               SizedBox(height: 10),
               GridView.count(
-
                 childAspectRatio: 0.502,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 crossAxisCount: 2,
                 crossAxisSpacing: 12.0,
                 mainAxisSpacing: 15.0,
-                children: items.map((item) => ItemsGrid(item: item)).toList(),
+                children: items.map((item) => GestureDetector(
+                    child: ItemsGrid(item: item))).toList(),
               ),
-
-
-
-
-          ],
+            ],
           ),
         ),
       ),
@@ -118,6 +114,7 @@ class _HomeState extends State<Home> {
   }
 }
 
+/*
 class ItemsGrid extends StatefulWidget {
   final Item item;
 
@@ -137,9 +134,6 @@ class _ItemsGridState extends State<ItemsGrid> {
     double h = MediaQuery.of(context).size.height;
 
     return GestureDetector(
-      onTap: (){
-Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductDetailPage()));
-      },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
@@ -180,7 +174,9 @@ Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductDetailPa
                         });
                       },
                       icon: Icon(
-                        isCartPressed ? Icons.shopping_cart : Icons.shopping_cart_outlined,
+                        isCartPressed
+                            ? Icons.shopping_cart
+                            : Icons.shopping_cart_outlined,
                         color: Colors.white,
                       ),
                     ),
@@ -233,6 +229,122 @@ Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductDetailPa
           ],
         ),
       ),
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ProductDetailPage(
+                  item: item,
+                )));
+      },
+    );
+  }
+}
+*/
+class ItemsGrid extends StatelessWidget {
+  final Item item;
+
+  const ItemsGrid({super.key, required this.item});
+
+  @override
+  Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ProductDetailPage(
+           item1: item,
+            )));
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: Theme.of(context).scaffoldBackgroundColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              blurRadius: 5,
+            )
+          ],
+        ),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(8),
+                    bottomRight: Radius.circular(8),
+                  ),
+                  child: Image.network(
+                    "${item.path}",
+                    width: 200,
+                    height: h * 0.23,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 122, top: 155),
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    child: IconButton(
+                      onPressed: () {}, // No need for setState
+                      icon: Icon(
+                        Icons.shopping_cart_outlined,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: List.generate(5, (index) {
+                      return Icon(
+                        (index < item.star) ? Icons.star : Icons.star_border,
+                        color: Colors.yellow[600],
+                        size: 18,
+                      );
+                    }),
+                  ),
+                  Text(
+                    item.title,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  Text(
+                    item.category.type,
+                    style: TextStyle(color: Colors.grey[400]),
+                  ),
+                  SizedBox(height: 3),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("${item.price}\$",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                          "${item.quantity}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).primaryColor),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+
     );
   }
 }
