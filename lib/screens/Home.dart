@@ -13,6 +13,7 @@ import '../customs/appBar.dart';
 import '../customs/bottomNavigator.dart';
 import '../customs/drawer.dart';
 
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -47,13 +48,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
-
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        actions: [IconButton(onPressed: (){
-          showSearch(context: context, delegate: productSearchDelegate(items: items));
-        }, icon: Icon(Icons.search))],
-      ),
+      appBar:getAppBar(title:"Shoppe" ,items: items),
       drawer: getDrawer(),
       bottomNavigationBar: getBottomNavigator(context, 0),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -115,17 +112,22 @@ class _HomeState extends State<Home> {
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 10),
-              GridView.count(
-                childAspectRatio: 0.502,
+
+              GridView.builder(
+
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.502,
+                  crossAxisSpacing: 12.0,
+                  mainAxisSpacing: 15.0,
+                ),
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                crossAxisSpacing: 12.0,
-                mainAxisSpacing: 15.0,
-                children: items
-                    .map(
-                        (item) => GestureDetector(child: ItemsGrid(item: item)))
-                    .toList(),
+                itemCount: items.length,
+                itemBuilder: (context, index){
+
+                  return ItemsGrid(item: items[index]);
+                }
               ),
             ],
           ),
@@ -336,7 +338,7 @@ class ItemsGrid extends StatelessWidget {
                   ),
                   Text(
                     item.title,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
                     item.category.type,
@@ -365,6 +367,7 @@ class ItemsGrid extends StatelessWidget {
           ],
         ),
       ),
+
     );
   }
 }

@@ -16,9 +16,9 @@ Widget getDrawer() {
 
   return Consumer<Themeprovider>(builder: (context, provider, child) {
     final userprovider = Provider.of<userProvider>(context);
-
+    bool isThemePressed=false;
     return Drawer(
-        //backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -27,6 +27,7 @@ Widget getDrawer() {
             onTap: () {},
             child: Column(
               children: [
+                SizedBox(height: 30),
                 Align(
                     alignment: Alignment.topRight,
                     child: IconButton(
@@ -48,10 +49,9 @@ Widget getDrawer() {
                     ),
                     Column(
                       children: [
-                        Text("${userprovider.name}"),
-                        Text("  ${userprovider.email}"),
-                        SizedBox(height: 8),
-                        Text("View Profile")
+                        SizedBox(height: 5),
+                        Text("${userprovider.name}", style:TextStyle(fontWeight: FontWeight.bold)),
+                        Text("  ${userprovider.email}", style:TextStyle(color: Colors.grey[400])),
                       ],
                     )
                   ],
@@ -59,6 +59,7 @@ Widget getDrawer() {
               ],
             ),
           ),
+          SizedBox(height: 15),
           Expanded(
               child: Column(
             children: [

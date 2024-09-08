@@ -3,21 +3,19 @@ import 'package:ecommerce/customs/bottomNavigator.dart';
 import 'package:ecommerce/customs/drawer.dart';
 import 'package:flutter/material.dart';
 
+import 'HistoryProducts.dart';
+
 class history extends StatelessWidget {
    history({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: getAppBar(title: "History"),
       drawer: getDrawer(),
-
       bottomNavigationBar: getBottomNavigator(context , 2),
       body:   Column(
         children: [
-          Text(
-            "My Orders",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-          ),
+          SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -44,6 +42,8 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(10),
+      color: Theme.of(context).scaffoldBackgroundColor,
+      shadowColor: Colors.grey,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -61,7 +61,7 @@ class OrderCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Quantity: 3'),
+                Text('Quantity: 3', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
                 Text('Total Amount: 112\$', style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
@@ -70,7 +70,9 @@ class OrderCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryProducts()));
+                  },
                   child: Text('Details',style: TextStyle(color: Colors.white),),
                   style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).primaryColor),
                 ),

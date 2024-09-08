@@ -32,7 +32,7 @@ class _CheckoutState extends State<Checkout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(),
+      appBar: getAppBar(title: "Checkout"),
       drawer: getDrawer(),
       bottomNavigationBar: getBottomNavigator(context),
       body: SingleChildScrollView(
