@@ -1,6 +1,8 @@
 import 'package:ecommerce/classes/Item.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/itemDescription.dart';
+
 class productSearchDelegate extends SearchDelegate {
   final items;
   List<Item>  filter=[];
@@ -45,15 +47,20 @@ class productSearchDelegate extends SearchDelegate {
 
     });
     }
-    else{      filter=items.where((Item element)=>element.title.contains(query)).toList();
+    else{ filter=items.where((Item element)=>element.title.toLowerCase().contains(query.toLowerCase())).toList();
 
     return ListView.builder(itemCount: filter.length, itemBuilder: (context, i) {
-      return Card(
-
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text("${filter[i].title}"),
-          ));
+      return GestureDetector(
+        onTap: (){
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ProductDetailPage(item1: items[i])));
+        },
+        child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text("${filter[i].title}"),
+            )),
+      );
 
 
     });}

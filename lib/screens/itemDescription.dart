@@ -1,3 +1,6 @@
+import 'package:ecommerce/customs/appBar.dart';
+import 'package:ecommerce/customs/bottomNavigator.dart';
+import 'package:ecommerce/customs/drawer.dart';
 import 'package:flutter/material.dart';
 import '../classes/Item.dart';
 
@@ -9,9 +12,9 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(""),
-        ),
+        appBar: getAppBar(title: "Product Description"),
+        drawer: getDrawer(),
+        bottomNavigationBar: getBottomNavigator(context),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Stack(
