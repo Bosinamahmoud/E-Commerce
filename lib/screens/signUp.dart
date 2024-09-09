@@ -3,11 +3,11 @@ import 'package:ecommerce/screens/login.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 class signUp extends StatefulWidget {
   @override
   _signUpState createState() => _signUpState();
 }
-
 
 class _signUpState extends State<signUp> {
   bool _obscureText = true;
@@ -28,33 +28,42 @@ class _signUpState extends State<signUp> {
     final emailprovider = Provider.of<userProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(""),),
+      appBar: AppBar(
+        title: Text(""),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(
-
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Sign up",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+                Text(
+                  "Sign up",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 20),
                 TextFormField(
                   onChanged: (value) {
                     userprovider.setName(value);
                   },
                   controller: _nameController,
-                  onTapOutside: (value){
+                  onTapOutside: (value) {
                     FocusScope.of(context).requestFocus(FocusNode());
                   },
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(labelText: 'Name',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Colors.grey),),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: InputDecoration(
+                      labelText: 'Name',
+                      labelStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black))),
                   // wait database
-                  onFieldSubmitted: (value){},
+                  onFieldSubmitted: (value) {},
                   keyboardType: TextInputType.name,
 
                   validator: (value) {
@@ -65,85 +74,106 @@ class _signUpState extends State<signUp> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 30),
                 TextFormField(
                     onChanged: (value) {
-                     emailprovider.setEmail(value);
+                      emailprovider.setEmail(value);
                     },
-                  controller: _emailController,
-                  onTapOutside: (value){
-                    FocusScope.of(context).requestFocus(FocusNode());
-                  },
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                    controller: _emailController,
+                    onTapOutside: (value) {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                        labelText: 'Email',
+                        labelStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),
 
-                  decoration: InputDecoration(labelText: 'Email'  ,border: OutlineInputBorder(borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(color: Colors.grey),),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
-                  keyboardType: TextInputType.emailAddress,
-                  // wait database
-                  onFieldSubmitted: (value){},
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    else if (!EmailValidator.validate(value)) {
-                      return 'Please enter a valid email';
-                    }
-                    return null;
-                  }
-
-
-                ),
-                SizedBox(height: 20),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black))),
+                    keyboardType: TextInputType.emailAddress,
+                    // wait database
+                    onFieldSubmitted: (value) {},
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      } else if (!EmailValidator.validate(value)) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    }),
+                SizedBox(height: 30),
                 TextFormField(
                   controller: _passwordController,
-                  onTapOutside: (value){
+                  onTapOutside: (value) {
                     FocusScope.of(context).requestFocus(FocusNode());
                   },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
 
                   obscureText: _obscureText,
                   decoration: InputDecoration(
-                    labelText: 'Password', suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility : Icons.visibility_off,
-                    ),
-                    onPressed: _togglePasswordVisibility,
-                  ),  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Colors.grey),),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
+                      labelText: 'Password',
+                      labelStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),
+
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: _togglePasswordVisibility,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black))),
                   //maxLength: 10,
                   // wait database
-                  onFieldSubmitted: (value){},
+                  onFieldSubmitted: (value) {},
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
-                    }
-                    else if(value.length <5){
+                    } else if (value.length < 5) {
                       return 'password must be at least 5 characters';
                     }
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 30),
                 SizedBox(
                   width: double.infinity,
-                  child:  ElevatedButton(
+                  child: ElevatedButton(
                     onPressed: () {
-                      if(_formKey.currentState!.validate()) {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => login(email: _emailController.text,password: _passwordController.text, name: _nameController.text,)));
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => login(
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                  name: _nameController.text,
+                                )));
                       }
                       //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>signUp()));
                       // Action to perform when button is pressed
                     },
-                    style: ElevatedButton.styleFrom(backgroundColor:  Theme.of(context).primaryColor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-
-                    child: Text("SIGN UP",style: TextStyle(fontSize: 20,color: Colors.white),),
-                  ), ),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    child: Text(
+                      "SIGN UP",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("already have an account ?"),
+                    Text("already have an account ?",style: TextStyle(fontSize: 20),),
                     IconButton(
                         onPressed: () {
                           Navigator.of(context).push(
@@ -151,7 +181,7 @@ class _signUpState extends State<signUp> {
                         },
                         icon: Icon(
                           Icons.arrow_forward_rounded,
-                          color:  Theme.of(context).primaryColor,
+                          color: Theme.of(context).primaryColor,
                         ))
                   ],
                 ),
@@ -159,7 +189,7 @@ class _signUpState extends State<signUp> {
             ),
           ),
         ),
-      ),);
+      ),
+    );
   }
-
 }

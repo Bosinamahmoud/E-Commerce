@@ -88,9 +88,9 @@ class Cart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBar(title: "My Cart"),
-        drawer: getDrawer(),
-        bottomNavigationBar: getBottomNavigator(context, 1),
+        appBar: AppBar(title: Text("My Cart")),
+       // drawer: getDrawer(),
+       // bottomNavigationBar: getBottomNavigator(context, 1),
         body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Stack(children: [

@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
     "assets/trendin2.jpg",
     "assets/trendin3.jpg",
     "assets/trendin4.jpg",
-    "assets/trendin1.jpg",
+
   ];
 
   @override

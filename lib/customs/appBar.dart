@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../classes/product_search_delegate.dart';
 import 'filter.dart';
 
-PreferredSizeWidget getAppBar({required String title,List<Item>?items}) {
+PreferredSizeWidget getAppBar({required String title,final items}) {
   Color c = Colors.red;
 
   return AppBar(

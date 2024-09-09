@@ -12,9 +12,9 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBar(title: "Product Description"),
-        drawer: getDrawer(),
-        bottomNavigationBar: getBottomNavigator(context),
+        appBar: AppBar(title: Text( item1.title)),
+       // drawer: getDrawer(),
+      //  bottomNavigationBar: getBottomNavigator(context),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Stack(
@@ -28,7 +28,7 @@ class ProductDetailPage extends StatelessWidget {
                       children: [
                         Image.network(
                           item1.path,
-                          height: 500,
+                          height: 400,
                         ),
                         SizedBox(height: 16),
                         Text(

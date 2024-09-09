@@ -88,8 +88,8 @@ class HistoryProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: getAppBar(title: "History Cart"),
-        drawer: getDrawer(),
+        appBar: AppBar(title:Text("History Cart") ),
+       // drawer: getDrawer(),
         bottomNavigationBar: getBottomNavigator(context, 2),
         body: Padding(
             padding: const EdgeInsets.all(8.0),

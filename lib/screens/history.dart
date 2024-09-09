@@ -10,12 +10,12 @@ class history extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(title: "History"),
-      drawer: getDrawer(),
+      appBar: AppBar(title: Text("History")),
+     // drawer: getDrawer(),
       bottomNavigationBar: getBottomNavigator(context , 2),
       body:   Column(
         children: [
-          SizedBox(height: 10),
+          SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

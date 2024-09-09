@@ -47,7 +47,7 @@ class _loginState extends State<login> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Login",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,),),
                 SizedBox(height: 20),
                 TextFormField(
                   controller: _emailController,
@@ -58,6 +58,8 @@ class _loginState extends State<login> {
                   // wait database
                   onFieldSubmitted: (value){},
                   decoration: InputDecoration(labelText: 'Email',
+                      labelStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),
+
                       border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(color: Colors.grey),),
@@ -75,7 +77,7 @@ class _loginState extends State<login> {
                     }
 
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 30),
                 TextFormField(
                   controller: _passwordController,
                   onTapOutside: (value){
@@ -87,6 +89,8 @@ class _loginState extends State<login> {
                   obscureText: _obscureText,
                   decoration: InputDecoration(
                     labelText: 'Password',
+                      labelStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),
+
                       suffixIcon: IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility : Icons.visibility_off,
@@ -102,7 +106,7 @@ class _loginState extends State<login> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,
                 child:  ElevatedButton(
@@ -123,7 +127,7 @@ class _loginState extends State<login> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Forgot your Password ?"),
+                    Text("Forgot your Password ?",style: TextStyle(fontSize: 20),),
                     IconButton(
                         onPressed: () {
                           Navigator.of(context).push(

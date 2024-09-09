@@ -78,7 +78,7 @@ class start extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("I already have an account"),
+                  Text("I already have an account",style: TextStyle(fontSize: 20),),
                   IconButton(
                       onPressed: () {
                         Navigator.of(context).push(
