@@ -1,6 +1,7 @@
 import 'package:ecommerce/customs/appBar.dart';
 import 'package:ecommerce/customs/bottomNavigator.dart';
 import 'package:ecommerce/customs/drawer.dart';
+import 'package:ecommerce/screens/Cart.dart';
 import 'package:flutter/material.dart';
 import '../classes/Item.dart';
 
@@ -14,7 +15,7 @@ class ProductDetailPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: Text( item1.title)),
        // drawer: getDrawer(),
-      //  bottomNavigationBar: getBottomNavigator(context),
+       bottomNavigationBar: getBottomNavigator(context),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Stack(
@@ -60,6 +61,8 @@ class ProductDetailPage extends StatelessWidget {
                   right: 16,
                   child: ElevatedButton(
                     onPressed: () {
+                      Cart c=Cart();
+                      c.addItem(item1);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,

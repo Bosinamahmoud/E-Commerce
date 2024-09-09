@@ -8,9 +8,14 @@ import '../classes/Item.dart';
 import 'itemDescription.dart';
 
 class Cart extends StatelessWidget {
+  static double total=0;
   Cart({super.key});
-
-  List<Item> items = [
+ static List<Item> list_items=[];
+  addItem(Item item){
+    list_items.add(item);
+    total += item.price;
+  }
+ /* List<Item> items = [
     Item(
         title: 'Shirt',
         description: 'description',
@@ -83,7 +88,7 @@ class Cart extends StatelessWidget {
         star: 1,
         path: 'assets/broom1.jpg',
         category: Category(type: "Home Appliances", color: Colors.deepPurple)),
-  ];
+  ];*/
 
   @override
   Widget build(BuildContext context) {
@@ -95,12 +100,13 @@ class Cart extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Stack(children: [
               ListView.builder(
-                itemCount: items.length,
+                itemCount: list_items.length,
                 itemBuilder: (context, index) {
-                  Item item = items[index];
+                  Item item = list_items[index];
                   return CartItems(item: item);
                 },
               ),
+
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -133,7 +139,7 @@ class Cart extends StatelessWidget {
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600),
                                   ),
-                                  Text("3000.00\$",
+                                  Text("${total.toStringAsFixed(2)}\$",
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w700,
@@ -164,6 +170,7 @@ class Cart extends StatelessWidget {
                       ),
                     )),
               ),
+
             ])));
   }
 }
@@ -208,7 +215,8 @@ class _CartItemsState extends State<CartItems> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Padding(
+                Image.network( item.path,width: w/4,height: w/4,),
+            /*    Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
@@ -219,71 +227,86 @@ class _CartItemsState extends State<CartItems> {
                       fit: BoxFit.fill,
                     ),
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item.title,
-                      style:
-                          TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
-                    ),
-                    Row(
-                      children: [
-                        Text("${item.price}\$",
-                            style: TextStyle(fontWeight: FontWeight.w600)),
-                        SizedBox(width: 40),
-                        Text(
-                          "${item.quantity}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Theme.of(context).primaryColor),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 16,
-                          backgroundColor: Colors.grey[400],
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.remove,
-                              color: Colors.white,
-                              size: 15,
+                ),*/
+                Container(
+
+                  width: 2*w/4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.title,
+                        style:
+                            TextStyle(fontWeight: FontWeight.w800, fontSize: 15,),softWrap: true,
+                      ),
+                      Row(
+                        children: [
+                          Text("${item.price}\$",
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          SizedBox(width: 40),
+                          Text(
+                            "${item.quantity}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).primaryColor),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 16,
+                            backgroundColor: Colors.grey[400],
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.remove,
+                                color: Colors.white,
+                                size: 15,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Text("1",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 20)),
-                        ),
-                        CircleAvatar(
-                          radius: 16,
-                          backgroundColor: Colors.grey[400],
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 15,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Text("1",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 20)),
+                          ),
+                          CircleAvatar(
+                            radius: 16,
+                            backgroundColor: Colors.grey[400],
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                                size: 15,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
+                          IconButton(
+
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.delete,
+                                color: Theme.of(context).primaryColor,
+                              )),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.delete,
-                      color: Theme.of(context).primaryColor,
-                    )),
+               /* Container(
+                  width: w/4,
+                  child: IconButton(
+
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.delete,
+                        color: Theme.of(context).primaryColor,
+                      )),
+                ),*/
               ],
             )),
       ),
