@@ -12,8 +12,11 @@ class Cart extends StatelessWidget {
   Cart({super.key});
  static List<Item> list_items=[];
   addItem(Item item){
-    list_items.add(item);
-    total += item.price;
+    if(!list_items.contains(item)){
+      list_items.add(item);
+      total += item.price;
+    }
+
   }
  /* List<Item> items = [
     Item(
