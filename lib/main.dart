@@ -3,9 +3,9 @@ import 'package:ecommerce/providers/userProvider.dart';
 import 'package:ecommerce/screens/Checkout.dart';
 import 'package:ecommerce/screens/start.dart';
 import 'package:ecommerce/themes/app_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 void main() {
 
   runApp(const MyApp());
