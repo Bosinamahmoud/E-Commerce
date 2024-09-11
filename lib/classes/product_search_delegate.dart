@@ -59,7 +59,8 @@ class productSearchDelegate extends SearchDelegate {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text("${filter[i].title}"),
-            )),
+            )
+        ),
       );
 
 

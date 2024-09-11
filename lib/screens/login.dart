@@ -127,7 +127,7 @@ class _loginState extends State<login> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Forgot your Password ?",style: TextStyle(fontSize: 20),),
+                    Text("Forgot your Password ?"),
                     IconButton(
                         onPressed: () {
                           Navigator.of(context).push(

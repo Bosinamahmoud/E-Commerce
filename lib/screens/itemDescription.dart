@@ -13,9 +13,9 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text( item1.title)),
-       // drawer: getDrawer(),
-       bottomNavigationBar: getBottomNavigator(context),
+        appBar: AppBar(title: Text(item1.title)),
+        // drawer: getDrawer(),
+        bottomNavigationBar: getBottomNavigator(context),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Stack(
@@ -61,8 +61,11 @@ class ProductDetailPage extends StatelessWidget {
                   right: 16,
                   child: ElevatedButton(
                     onPressed: () {
-                      Cart c=Cart();
+                      Cart c = Cart();
                       c.addItem(item1);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text("Added successfully",style: TextStyle(color: Colors.white),), duration:Duration(seconds: 2),));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
