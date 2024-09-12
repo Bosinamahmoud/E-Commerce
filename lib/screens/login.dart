@@ -1,15 +1,18 @@
+import 'package:ecommerce/remote/auth/firebase_helper.dart';
 import 'package:ecommerce/screens/Home.dart';
 import 'package:ecommerce/screens/forgetPassword.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 class login extends StatefulWidget {
   String email;
   String password;
   String name;
-  login({super.key, this.email="",  this.password="", this.name=""});
+
+  login({super.key, this.email = "", this.password = "", this.name = ""});
 
   @override
-
   _loginState createState() => _loginState();
 }
 
@@ -17,15 +20,15 @@ class login extends StatefulWidget {
 class _loginState extends State<login> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _emailController;
-  late TextEditingController _passwordController;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
 
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _emailController = TextEditingController(text: widget.email);
-    _passwordController = TextEditingController(text: widget.password);
+    emailController = TextEditingController(text: widget.email);
+    passwordController = TextEditingController(text: widget.password);
   }
 
   void _togglePasswordVisibility() {
@@ -47,25 +50,29 @@ class _loginState extends State<login> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Login",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,),),
+                  style: TextStyle(
+                    fontSize: 30, fontWeight: FontWeight.bold,),),
                 SizedBox(height: 20),
                 TextFormField(
-                  controller: _emailController,
-                  onTapOutside: (value){
-                    FocusScope.of(context).requestFocus(FocusNode());
-                  },
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  // wait database
-                  onFieldSubmitted: (value){},
-                  decoration: InputDecoration(labelText: 'Email',
-                      labelStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),
+                    controller: emailController,
+                    onTapOutside: (value) {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    // wait database
+                    onFieldSubmitted: (value) {},
+                    decoration: InputDecoration(labelText: 'Email',
+                        labelStyle: TextStyle(fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
 
-                      border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Colors.grey),),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black))
-                  ),
-                  keyboardType: TextInputType.emailAddress,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: Colors.grey),),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black))
+                    ),
+                    keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
@@ -79,25 +86,32 @@ class _loginState extends State<login> {
                 ),
                 SizedBox(height: 30),
                 TextFormField(
-                  controller: _passwordController,
-                  onTapOutside: (value){
+                  controller: passwordController,
+                  onTapOutside: (value) {
                     FocusScope.of(context).requestFocus(FocusNode());
                   },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   // wait database
-                  onFieldSubmitted: (value){},
+                  onFieldSubmitted: (value) {},
                   obscureText: _obscureText,
                   decoration: InputDecoration(
-                    labelText: 'Password',
-                      labelStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),
+                      labelText: 'Password',
+                      labelStyle: TextStyle(fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
 
                       suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility : Icons.visibility_off,
-                    ),
-                    onPressed: _togglePasswordVisibility,
-                  ),  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Colors.grey),),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
+                        icon: Icon(
+                          _obscureText ? Icons.visibility : Icons
+                              .visibility_off,
+                        ),
+                        onPressed: _togglePasswordVisibility,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.grey),),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black))),
 
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -107,23 +121,25 @@ class _loginState extends State<login> {
                   },
                 ),
                 SizedBox(height: 30),
-              SizedBox(
-                width: double.infinity,
-                child:  ElevatedButton(
-                  onPressed: () {
-                    if(_formKey.currentState!.validate()) {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Home()));
-                    }
-                  //  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home()));
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      signInAction();
+                      //  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Home()));
 
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>signUp()));
-                    // Action to perform when button is pressed
-                  },
-                  style: ElevatedButton.styleFrom(backgroundColor:  Theme.of(context).primaryColor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                      //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>signUp()));
+                      // Action to perform when button is pressed
+                    },
+                    style: ElevatedButton.styleFrom(backgroundColor: Theme
+                        .of(context)
+                        .primaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
 
-                  child: Text("LOGIN",style: TextStyle(fontSize: 20,color: Colors.white),),
-                ), ),
+                    child: Text("LOGIN",
+                      style: TextStyle(fontSize: 20, color: Colors.white),),
+                  ),),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -131,11 +147,14 @@ class _loginState extends State<login> {
                     IconButton(
                         onPressed: () {
                           Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => forgetPassword()));
+                              MaterialPageRoute(builder: (context) =>
+                                  forgetPassword()));
                         },
                         icon: Icon(
                           Icons.arrow_forward_rounded,
-                          color:  Theme.of(context).primaryColor,
+                          color: Theme
+                              .of(context)
+                              .primaryColor,
                         ))
                   ],
                 ),
@@ -147,4 +166,31 @@ class _loginState extends State<login> {
       ),);
   }
 
+  void signInAction() async {
+    await FirebaseHelper()
+        .signIn(
+      emailController.text.toString(), passwordController.text.toString(),)
+        .then((value) =>{
+          if(value is User){
+        Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => Home()))
+          }
+          else if (value is String)
+            {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(
+                  SnackBar(
+                    content: Text(
+                        value.toString()),
+                    backgroundColor: Colors.red,))
+            }
+
+    });
+
+  }
+
 }
+/* if (_formKey.currentState!.validate()) {
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => Home()));
+    }*/

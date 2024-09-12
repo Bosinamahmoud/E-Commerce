@@ -1,6 +1,8 @@
 import 'package:ecommerce/providers/userProvider.dart';
+import 'package:ecommerce/remote/auth/firebase_helper.dart';
 import 'package:ecommerce/screens/login.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,9 +14,9 @@ class signUp extends StatefulWidget {
 class _signUpState extends State<signUp> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -48,14 +50,17 @@ class _signUpState extends State<signUp> {
                   onChanged: (value) {
                     userprovider.setName(value);
                   },
-                  controller: _nameController,
+                  controller: nameController,
                   onTapOutside: (value) {
                     FocusScope.of(context).requestFocus(FocusNode());
                   },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                       labelText: 'Name',
-                      labelStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),
+                      labelStyle: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(color: Colors.grey),
@@ -79,15 +84,17 @@ class _signUpState extends State<signUp> {
                     onChanged: (value) {
                       emailprovider.setEmail(value);
                     },
-                    controller: _emailController,
+                    controller: emailController,
                     onTapOutside: (value) {
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
                         labelText: 'Email',
-                        labelStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),
-
+                        labelStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide(color: Colors.grey),
@@ -107,7 +114,7 @@ class _signUpState extends State<signUp> {
                     }),
                 SizedBox(height: 30),
                 TextFormField(
-                  controller: _passwordController,
+                  controller: passwordController,
                   onTapOutside: (value) {
                     FocusScope.of(context).requestFocus(FocusNode());
                   },
@@ -116,8 +123,10 @@ class _signUpState extends State<signUp> {
                   obscureText: _obscureText,
                   decoration: InputDecoration(
                       labelText: 'Password',
-                      labelStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),
-
+                      labelStyle: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _obscureText
@@ -149,14 +158,15 @@ class _signUpState extends State<signUp> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
+                      signUpAction();
+                     /* if (_formKey.currentState!.validate()) {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => login(
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                  name: _nameController.text,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  name: nameController.text,
                                 )));
-                      }
+                      }*/
                       //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>signUp()));
                       // Action to perform when button is pressed
                     },
@@ -176,7 +186,8 @@ class _signUpState extends State<signUp> {
                     Text("already have an account ?"),
                     IconButton(
                         onPressed: () {
-                          Navigator.of(context).push(
+
+                           Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) => login()));
                         },
                         icon: Icon(
@@ -191,5 +202,33 @@ class _signUpState extends State<signUp> {
         ),
       ),
     );
+  }
+
+  void signUpAction() async {
+    await FirebaseHelper()
+        .signUp(
+            emailController.text.toString(),
+            passwordController.text.toString(),
+            nameController.text.toString())
+        .then((value) => {
+              if (value is User && _formKey.currentState!.validate())
+                {
+        Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => login(
+          email: emailController.text,
+          password: passwordController.text,
+          name: nameController.text,
+        )))
+                }
+              else if (value is String)
+                {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(
+                      SnackBar(
+                          content: Text(
+                              value.toString()),
+                      backgroundColor: Colors.red,))
+                }
+            });
   }
 }

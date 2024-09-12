@@ -1,3 +1,4 @@
+import 'package:ecommerce/firebase_options.dart';
 import 'package:ecommerce/providers/ThemeProvider.dart';
 import 'package:ecommerce/providers/userProvider.dart';
 import 'package:ecommerce/screens/Checkout.dart';
@@ -6,8 +7,11 @@ import 'package:ecommerce/themes/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-void main() {
-
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+await Firebase.initializeApp(
+  options:DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const MyApp());
 }
 
