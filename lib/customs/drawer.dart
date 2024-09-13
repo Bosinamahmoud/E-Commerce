@@ -1,5 +1,6 @@
 import 'package:ecommerce/providers/ThemeProvider.dart';
 import 'package:ecommerce/providers/userProvider.dart';
+import 'package:ecommerce/remote/auth/firebase_helper.dart';
 import 'package:ecommerce/screens/profile.dart';
 import 'package:ecommerce/screens/start.dart';
 import 'package:ecommerce/themes/app_theme.dart';
@@ -105,8 +106,9 @@ Widget getDrawer() {
               "LogOut",
               style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
             ),
-            onTap: () {
-              Navigator.push(
+            onTap: ()async {
+             await FirebaseHelper().signOut();
+             Navigator.push(
                   context, MaterialPageRoute(builder: (context) => start()));
             },
           )

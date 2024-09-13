@@ -24,7 +24,7 @@ class FirebaseHelper{
     }
   }
 
-  void signOut()async{
+  Future<dynamic> signOut()async{
     await auth.signOut();
   }
 }

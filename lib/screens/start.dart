@@ -1,6 +1,7 @@
 import 'package:ecommerce/providers/ThemeProvider.dart';
 import 'package:ecommerce/screens/login.dart';
 import 'package:ecommerce/screens/signUp.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,10 @@ class start extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<Themeprovider>(context);
 
-    return Scaffold(
+    return
+   // if(FirebaseAuth.instance.currentUser !=null){}
+
+      Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       body: Center(
@@ -95,5 +99,7 @@ class start extends StatelessWidget {
         ),
       ),
     );
+
+
   }
 }
