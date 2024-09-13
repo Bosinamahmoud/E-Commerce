@@ -1,8 +1,10 @@
 import 'package:ecommerce/customs/appBar.dart';
 import 'package:ecommerce/customs/bottomNavigator.dart';
 import 'package:ecommerce/customs/drawer.dart';
+import 'package:ecommerce/providers/counter_provider.dart';
 import 'package:ecommerce/screens/Checkout.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../classes/Item.dart';
 import 'itemDescription.dart';
@@ -106,7 +108,12 @@ class Cart extends StatelessWidget {
                 itemCount: list_items.length,
                 itemBuilder: (context, index) {
                   Item item = list_items[index];
-                  return CartItems(item: item);
+                  return ChangeNotifierProvider(
+                    create: (_) => CounterProvider(),
+                    child: CartItems(index: index,item: item),
+                  );
+
+                  //CartItems(item: item);
                 },
               ),
 
@@ -179,9 +186,9 @@ class Cart extends StatelessWidget {
 }
 
 class CartItems extends StatefulWidget {
-  final Item item;
+  final Item item; final int index;
 
-  const CartItems({super.key, required this.item});
+  CartItems({super.key, required this.item,required this.index});
 
   @override
   State<CartItems> createState() => _CartItemsState();
@@ -191,6 +198,8 @@ class _CartItemsState extends State<CartItems> {
 
   @override
   Widget build(BuildContext context) {
+    final counterProvider = Provider.of<CounterProvider>(context);
+
     Item item = widget.item;
     double h=MediaQuery.of(context).size.height;
     double w=MediaQuery.of(context).size.width;
@@ -262,7 +271,10 @@ class _CartItemsState extends State<CartItems> {
                             radius: 16,
                             backgroundColor: Colors.grey[400],
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Provider.of<CounterProvider>(context,listen: false).decrementCounter();
+
+                              },
                               icon: Icon(
                                 Icons.remove,
                                 color: Colors.white,
@@ -270,17 +282,24 @@ class _CartItemsState extends State<CartItems> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Text("1",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 20)),
+                          Consumer<CounterProvider> (
+                            builder: (key,CounterProvider,_)
+                            {
+                              return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Text( CounterProvider.counter.toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600, fontSize: 20)),
+                            );},
+
                           ),
                           CircleAvatar(
                             radius: 16,
                             backgroundColor: Colors.grey[400],
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Provider.of<CounterProvider>(context,listen: false).increamentCounter();
+                              },
                               icon: Icon(
                                 Icons.add,
                                 color: Colors.white,
@@ -290,7 +309,9 @@ class _CartItemsState extends State<CartItems> {
                           ),
                           IconButton(
 
-                              onPressed: () {},
+                              onPressed: () {
+
+                              },
                               icon: Icon(
                                 Icons.delete,
                                 color: Theme.of(context).primaryColor,

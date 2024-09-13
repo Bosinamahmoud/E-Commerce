@@ -41,7 +41,19 @@ class productSearchDelegate extends SearchDelegate {
 
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text("${items[i].title}"),
+              child:ListTile(
+                title: Text("${items[i].title}"),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetailPage(item1: items[i])
+                    ),
+                  );
+                },
+              )
+
+              //Text("${items[i].title}",),
             ));
 
 
