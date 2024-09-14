@@ -23,7 +23,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Item> items = [];
+  //List<Item> items1 = [];
 
+  //String s="beauty";
   @override
   void initState() {
     super.initState();
@@ -32,6 +34,7 @@ class _HomeState extends State<Home> {
 
   Future<void> getData() async {
     items = (await ItemsService().getItems()).cast<Item>();
+   // items1=items..where((Item element)=>element.category==s).toList();
     setState(() {});
   }
 

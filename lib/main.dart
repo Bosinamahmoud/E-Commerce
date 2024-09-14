@@ -1,5 +1,8 @@
 import 'package:ecommerce/firebase_options.dart';
+import 'package:ecommerce/providers/DeleteProvider.dart';
 import 'package:ecommerce/providers/ThemeProvider.dart';
+import 'package:ecommerce/providers/TotalProvider.dart';
+import 'package:ecommerce/providers/cartProvider.dart';
 import 'package:ecommerce/providers/counter_provider.dart';
 import 'package:ecommerce/providers/userProvider.dart';
 import 'package:ecommerce/screens/Checkout.dart';
@@ -29,6 +32,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) =>Themeprovider()),
         ChangeNotifierProvider(create: (_)=> userProvider()),
         ChangeNotifierProvider(create: (_)=> CounterProvider()),
+        ChangeNotifierProvider(create: (_)=> CartProvider()),
+        ChangeNotifierProvider(create: (_)=> TotalProvider()),
+        ChangeNotifierProvider(create: (_)=> DeleteProvider()),
+
+
 
       ],
       child: Consumer<Themeprovider>(builder: (context,provider,child){return   MaterialApp(

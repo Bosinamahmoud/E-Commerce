@@ -27,7 +27,7 @@ PreferredSizeWidget getAppBar({required String title,final items}) {
             onPressed: () {
               Scaffold.of(context)
                   .showBottomSheet((context) {
-                    return Filter();
+                    return Filter(items: items,);
               });
             },
             icon: Icon(Icons.filter_list_outlined, color:  Theme.of(context).primaryColor));

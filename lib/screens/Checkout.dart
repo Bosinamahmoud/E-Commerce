@@ -2,7 +2,9 @@ import 'package:ecommerce/classes/CreditCard.dart';
 import 'package:ecommerce/customs/appBar.dart';
 import 'package:ecommerce/customs/bottomNavigator.dart';
 import 'package:ecommerce/customs/drawer.dart';
+import 'package:ecommerce/providers/TotalProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'PayDialog.dart';
 import 'PaymentSheet.dart';
@@ -127,8 +129,7 @@ class _CheckoutState extends State<Checkout> {
               ),
               SizedBox(height: 30,),
               Text("Total", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),),
-              Text("3000.00\$", style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700, color: Colors.red)),
-              SizedBox(height:30),
+              Text("${Provider.of<TotalProvider>(context).total.toStringAsFixed(2)}\$", style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700, color: Colors.red)),              SizedBox(height:30),
               TextButton(
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 10, horizontal: 50)),

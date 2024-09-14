@@ -1,4 +1,6 @@
+import 'package:ecommerce/providers/cartProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/Home.dart';
 import '../screens/Cart.dart';
@@ -24,7 +26,37 @@ Widget getBottomNavigator(context, [int screenIdx=1]){
   },
   items: [
   BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home",),
-  BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined),label: "Cart",),
+
+  BottomNavigationBarItem(icon: Stack(
+    children: [
+      Icon(Icons.shopping_cart_outlined),
+
+      Positioned(
+        right: 0,
+          top: 0,
+          child: Container(
+            //padding: EdgeInsets.all(0),
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            constraints: BoxConstraints(
+              minWidth: 20,
+              minHeight: 20,
+            ),
+            child: Center(
+              child: Text(
+                '${Provider.of<CartProvider>(context).itemCount}',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          ))
+    ],
+  ),
+    label: "Cart",),
   BottomNavigationBarItem(icon:
   Icon(Icons.history,), label: "History"),
       ]);

@@ -62,7 +62,7 @@ class ProductDetailPage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       Cart c = Cart();
-                      c.addItem(item1);
+                      c.addItem(context,item1);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         backgroundColor: Colors.green,
                         content: Text("Added successfully",style: TextStyle(color: Colors.white),), duration:Duration(seconds: 2),));

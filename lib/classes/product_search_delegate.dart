@@ -6,7 +6,18 @@ import '../screens/itemDescription.dart';
 class productSearchDelegate extends SearchDelegate {
   final items;
   List<Item>  filter=[];
+  List<Item> pricefilter=[];
+  List<Item>catagoryfilter=[];
   productSearchDelegate({required this.items});
+
+List<Item>Price_Filter(double start,double end){
+  pricefilter=items.where((Item element)=>element.price<=end && element.price>=start ).toList();
+  return pricefilter;
+}
+  List<Item>Catagory_Filter(){
+    catagoryfilter=items.where((Item element)=>element.category=="beauty").toList();
+    return catagoryfilter;
+  }
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -53,15 +64,18 @@ class productSearchDelegate extends SearchDelegate {
                 },
               )
 
-              //Text("${items[i].title}",),
             ));
 
 
     });
     }
-    else{ filter=items.where((Item element)=>element.title.toLowerCase().contains(query.toLowerCase())).toList();
+    else{ filter=items.where(
+            (Item element)=>element.title.toLowerCase().contains(query.toLowerCase())
 
-    return ListView.builder(itemCount: filter.length, itemBuilder: (context, i) {
+    ).toList();
+
+    return
+      ListView.builder(itemCount: filter.length, itemBuilder: (context, i) {
       return GestureDetector(
         onTap: (){
           Navigator.of(context).push(MaterialPageRoute(
