@@ -27,7 +27,9 @@ Widget getBottomNavigator(context, [int screenIdx=1]){
   items: [
   BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home",),
 
-  BottomNavigationBarItem(icon: Stack(
+  BottomNavigationBarItem(icon:       Icon(Icons.shopping_cart_outlined),
+
+   /* Stack(
     children: [
       Icon(Icons.shopping_cart_outlined),
 
@@ -55,7 +57,7 @@ Widget getBottomNavigator(context, [int screenIdx=1]){
             ),
           ))
     ],
-  ),
+  )*/
     label: "Cart",),
   BottomNavigationBarItem(icon:
   Icon(Icons.history,), label: "History"),

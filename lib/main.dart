@@ -1,4 +1,6 @@
 import 'package:ecommerce/firebase_options.dart';
+import 'package:ecommerce/providers/CartItemsProvider.dart';
+import 'package:ecommerce/providers/CartItemsProvider.dart';
 import 'package:ecommerce/providers/DeleteProvider.dart';
 import 'package:ecommerce/providers/ThemeProvider.dart';
 import 'package:ecommerce/providers/TotalProvider.dart';
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_)=> CartProvider()),
         ChangeNotifierProvider(create: (_)=> TotalProvider()),
         ChangeNotifierProvider(create: (_)=> DeleteProvider()),
+
 
 
 

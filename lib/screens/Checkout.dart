@@ -10,7 +10,8 @@ import 'PayDialog.dart';
 import 'PaymentSheet.dart';
 
 class Checkout extends StatefulWidget {
-  const Checkout({super.key});
+  final items ;
+   Checkout({super.key,required this.items});
 
   @override
   State<Checkout> createState() => _CheckoutState();
@@ -124,7 +125,7 @@ class _CheckoutState extends State<Checkout> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Number of Products", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey[400]),),
-                  Text("5 Products", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.red)),
+                  Text("${widget.items.length}", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.red)),
                 ],
               ),
               SizedBox(height: 30,),
@@ -138,7 +139,7 @@ class _CheckoutState extends State<Checkout> {
                       )
                   ),
                   onPressed: (){
-                    showDialog(context: context, builder: (context)=>PayDialog());
+                    showDialog(context: context, builder: (context)=>PayDialog(items: widget.items,));
                   },
                   child: Text("Pay", style: TextStyle(
                       color: Colors.white,

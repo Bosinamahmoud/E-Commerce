@@ -8,88 +8,14 @@ import '../classes/Item.dart';
 import 'itemDescription.dart';
 
 class HistoryProducts extends StatelessWidget {
-  HistoryProducts({super.key});
-
-  List<Item> items = [
-    Item(
-        title: 'Shirt',
-        description: 'description',
-        price: 200,
-        q: 2,
-        star: 3,
-        path: 'assets/T-shirt1.jpg',
-        category: Category(type: "Fashion", color: Colors.pink)),
-    Item(
-        title: 'Computer',
-        description: 'description',
-        price: 200,
-        q: 2,
-        star: 5,
-        path: 'assets/computer1.jpg',
-        category: Category(type: "Electronics", color: Colors.blue)),
-    Item(
-        title: 'Broom',
-        description: 'description',
-        price: 200,
-        q: 2,
-        star: 1,
-        path: 'assets/broom1.jpg',
-        category: Category(type: "Home Appliances", color: Colors.deepPurple)),
-    Item(
-        title: 'Shirt',
-        description: 'description',
-        price: 200,
-        q: 2,
-        star: 3,
-        path: 'assets/T-shirt1.jpg',
-        category: Category(type: "Fashion", color: Colors.pink)),
-    Item(
-        title: 'Computer',
-        description: 'description',
-        price: 200,
-        q: 2,
-        star: 5,
-        path: 'assets/computer1.jpg',
-        category: Category(type: "Electronics", color: Colors.blue)),
-    Item(
-        title: 'Broom',
-        description: 'description',
-        price: 200,
-        q: 2,
-        star: 1,
-        path: 'assets/broom1.jpg',
-        category: Category(type: "Home Appliances", color: Colors.deepPurple)),
-    Item(
-        title: 'Shirt',
-        description: 'description',
-        price: 200,
-        q: 2,
-        star: 3,
-        path: 'assets/T-shirt1.jpg',
-        category: Category(type: "Fashion", color: Colors.pink)),
-    Item(
-        title: 'Computer',
-        description: 'description',
-        price: 200,
-        q: 2,
-        star: 5,
-        path: 'assets/computer1.jpg',
-        category: Category(type: "Electronics", color: Colors.blue)),
-    Item(
-        title: 'Broom',
-        description: 'description',
-        price: 200,
-        q: 2,
-        star: 1,
-        path: 'assets/broom1.jpg',
-        category: Category(type: "Home Appliances", color: Colors.deepPurple)),
-  ];
+  final  items;
+  HistoryProducts({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title:Text("History Cart") ),
-       // drawer: getDrawer(),
+        // drawer: getDrawer(),
         bottomNavigationBar: getBottomNavigator(context, 2),
         body: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -156,7 +82,7 @@ class _HistoryCartItemsState extends State<HistoryCartItems> {
                     bottomLeft: Radius.circular(8),
                     bottomRight: Radius.circular(8),
                   ),
-                  child: Image.asset(
+                  child: Image.network(
                     "${item.path}",
                     width: 200,
                     height: h * 0.23,

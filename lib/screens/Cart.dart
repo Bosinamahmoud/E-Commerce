@@ -100,7 +100,7 @@ class Cart extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Checkout()));
+                                        builder: (context) => Checkout(items: list_items,)));
                               },
                               child: Text(
                                 "CHECKOUT",
