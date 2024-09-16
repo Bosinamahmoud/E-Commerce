@@ -1,7 +1,6 @@
 import 'package:ecommerce/providers/ThemeProvider.dart';
 import 'package:ecommerce/providers/userProvider.dart';
 import 'package:ecommerce/remote/auth/firebase_helper.dart';
-import 'package:ecommerce/screens/catagory.dart';
 import 'package:ecommerce/screens/profile.dart';
 import 'package:ecommerce/screens/start.dart';
 import 'package:ecommerce/themes/app_theme.dart';
@@ -85,10 +84,7 @@ Widget getDrawer() {
                   TextStyle(fontWeight: FontWeight.bold),
                 ),
                 trailing: Icon(Icons.filter_list_rounded),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Catagory()));
-                },
+                onTap: () {}
               ),
               ListTile(
                 title: Text(

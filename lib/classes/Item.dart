@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-class Item{
+class Item {
   String title;
   String description;
   double price;
@@ -11,20 +11,19 @@ class Item{
 
   Item(
       {required this.title,
-        required this.description,
-        required this.price,
-        required int q,
-        this.star=3,
-        required this.path,
-        required this.category}){
-        quantity="$q left";
+      required this.description,
+      required this.price,
+      required int q,
+      this.star = 3,
+      required this.path,
+      required this.category}) {
+    quantity = "$q left";
   }
 }
 
-class Category{
+class Category {
   String type;
-  Color color;
+  bool isSelected;
 
-  Category({required this.type, required this.color});
+  Category({required this.type, required this.isSelected});
 }
-

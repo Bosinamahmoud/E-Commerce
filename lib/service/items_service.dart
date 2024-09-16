@@ -28,7 +28,7 @@ class ItemsService {
             price: product["price"],
             q: product["stock"],
             path: product["images"][0],
-            category: Category(type: product["category"], color: Colors.grey),
+            category: Category(type: product["category"], isSelected: false),
           ));
         }
 

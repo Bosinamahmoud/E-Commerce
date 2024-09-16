@@ -1,7 +1,10 @@
+import 'package:ecommerce/classes/Item.dart';
 import 'package:ecommerce/customs/appBar.dart';
 import 'package:ecommerce/customs/bottomNavigator.dart';
 import 'package:ecommerce/customs/drawer.dart';
+import 'package:ecommerce/providers/CartItemsProvider.dart';
 import 'package:ecommerce/providers/DeleteProvider.dart';
+import 'package:ecommerce/providers/cartProvider.dart';
 import 'package:ecommerce/providers/counter_provider.dart';
 import 'package:ecommerce/screens/Checkout.dart';
 import 'package:flutter/material.dart';
@@ -16,34 +19,32 @@ class Cart extends StatelessWidget {
 
   Cart({super.key});
 
-  static List<Item> list_items = [];
-
-  addItem(BuildContext context ,Item item) {
-    if (!list_items.contains(item)) {
-      list_items.add(item);
-      int counter= Provider.of<CounterProvider>(context, listen: false).counter;
-      Provider.of<TotalProvider>(context, listen: false).addTotal(price: item.price, quantity: counter);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final list_items =
+        Provider.of<Cartprovider>(context, listen: false).items;
     return Scaffold(
-        appBar: AppBar(title: Text("My Cart")),
+        appBar: AppBar(
+          title: Text(
+            "My Cart",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+        ),
         // drawer: getDrawer(),
-         bottomNavigationBar: getBottomNavigator(context, 1),
+        // bottomNavigationBar: getBottomNavigator(context, 1),
         body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Stack(children: [
               Consumer<DeleteProvider>(builder: (context, deleteItem, child) {
                 return ListView.builder(
-                  itemCount: list_items.length,
+                  itemCount: list_items.length + 1,
                   itemBuilder: (context, index) {
-                    Item item = list_items[index];
-                    return ChangeNotifierProvider(
-                      create: (_) => CounterProvider(),
-                      child: CartItems(item: item),
-                    );
+                    if (index == list_items.length) {
+                      return SizedBox(height: 100);
+                    }
+                    final item = list_items[index];
+                    return CartItems(item: item);
                   },
                 );
               }),
@@ -71,7 +72,7 @@ class Cart extends StatelessWidget {
                           children: [
                             Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "Total:",
@@ -80,27 +81,27 @@ class Cart extends StatelessWidget {
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Consumer<TotalProvider>(
-                                      builder: (context , totalProvider , child){
-                                        return  Text("${totalProvider.total.toStringAsFixed(2)}\$",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w700,
-                                                color: Colors.red));
-                                      }
-
-                                  ),
+                                      builder: (context, totalProvider, child) {
+                                    return Text(
+                                        "${totalProvider.total.toStringAsFixed(2)}\$",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.red));
+                                  }),
                                 ]),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                  Theme.of(context).primaryColor,
+                                      Theme.of(context).primaryColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
                               onPressed: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Checkout(items: list_items,)));
+                                        builder: (context) =>
+                                            Checkout(items: list_items)));
                               },
                               child: Text(
                                 "CHECKOUT",
@@ -118,7 +119,7 @@ class Cart extends StatelessWidget {
 }
 
 class CartItems extends StatefulWidget {
-  final Item item;
+  final  item;
 
   CartItems({super.key, required this.item});
 
@@ -127,11 +128,10 @@ class CartItems extends StatefulWidget {
 }
 
 class _CartItemsState extends State<CartItems> {
-
   @override
   Widget build(BuildContext context) {
     final counterProvider = Provider.of<CounterProvider>(context);
-    Item item = widget.item;
+    final item = widget.item;
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Padding(
@@ -151,8 +151,8 @@ class _CartItemsState extends State<CartItems> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ProductDetailPage(
-                    item1: item,
-                  )));
+                        item1: item,
+                      )));
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -207,10 +207,12 @@ class _CartItemsState extends State<CartItems> {
                             backgroundColor: Colors.grey[400],
                             child: IconButton(
                               onPressed: () {
-                                bool response=counterProvider
-                                    .decrementCounter();
-                                if(response)Provider.of<TotalProvider>(context, listen: false).removeTotal(price: item.price);
-
+                                bool response = counterProvider
+                                    .decrementCounter(item: item);
+                                if (response)
+                                  Provider.of<TotalProvider>(context,
+                                          listen: false)
+                                      .removeTotal(price: item.price);
                               },
                               icon: Icon(
                                 Icons.remove,
@@ -224,7 +226,8 @@ class _CartItemsState extends State<CartItems> {
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20.0),
-                                child: Text(CounterProvider.counter.toString(),
+                                child: Text(
+                                    CounterProvider.getCounter(item).toString(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 20)),
@@ -236,10 +239,12 @@ class _CartItemsState extends State<CartItems> {
                             backgroundColor: Colors.grey[400],
                             child: IconButton(
                               onPressed: () {
-
-                                bool response=counterProvider
-                                    .increamentCounter(left:item.quantity);
-                                if(response) Provider.of<TotalProvider>(context, listen: false).addTotal(price: item.price);
+                                bool response = counterProvider
+                                    .increamentCounter(item: item);
+                                if (response)
+                                  Provider.of<TotalProvider>(context,
+                                          listen: false)
+                                      .addTotal(price: item.price);
                               },
                               icon: Icon(
                                 Icons.add,
@@ -250,15 +255,9 @@ class _CartItemsState extends State<CartItems> {
                           ),
                           IconButton(
                               onPressed: () {
-                                int counter=Provider.of<CounterProvider>(context, listen: false).counter;
-
-                                Provider.of<DeleteProvider>(context, listen: false)
-                                    .deleteItem(
-                                    items: Cart.list_items, item: item);
-
-                                Provider.of<TotalProvider>(context, listen: false)
-                                    .removeTotal(
-                                    price: item.price, quantity:counter );
+                                Provider.of<DeleteProvider>(context,
+                                        listen: false)
+                                    .deleteItem(context: context, item: item);
                               },
                               icon: Icon(
                                 Icons.delete,

@@ -1,17 +1,18 @@
-import 'package:ecommerce/classes/Item.dart';
 import 'package:ecommerce/providers/CartItemsProvider.dart';
 import 'package:ecommerce/providers/TotalProvider.dart';
-import 'package:ecommerce/screens/history.dart';
+import 'package:ecommerce/providers/cartProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'Home.dart';
 
 class PayDialog extends StatefulWidget {
-  final  items;
-   PayDialog({super.key, required this.items});
+  final items;
 
-  static List<CartItemsProvider> historyCarts=[];
+  const PayDialog({super.key, required this.items});
+
+  static List<CartItemsProvider> historyCarts = [];
+
   @override
   State<PayDialog> createState() => _PayDialogState();
 }
@@ -20,7 +21,6 @@ class _PayDialogState extends State<PayDialog> {
   TextEditingController passController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey();
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,45 +62,77 @@ class _PayDialogState extends State<PayDialog> {
                         TextButton(
                             style: ButtonStyle(
                                 backgroundColor:
-                                MaterialStateProperty.all(Colors.red),
+                                    MaterialStateProperty.all(Colors.red),
                                 shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
                                         borderRadius:
-                                        BorderRadius.circular(20)))),
+                                            BorderRadius.circular(20)))),
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
                                 showDialog(
                                     context: context,
                                     builder: (context) {
                                       return AlertDialog(
-                                        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                                        backgroundColor: Theme.of(context)
+                                            .scaffoldBackgroundColor,
                                         title: Text(
                                           "Done",
                                           style: TextStyle(
                                               color: Colors.green,
-                                              fontSize: 20, fontWeight: FontWeight.bold),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                         content: Text('Payment Success'),
                                         actions: [
                                           TextButton(
-                                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red),
-                                                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(20))
-                                                  )),
+                                              style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.red),
+                                                  shape:
+                                                      MaterialStateProperty.all(
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20)))),
                                               onPressed: () {
-                                                String date="${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}";
-                                                CartItemsProvider cartProvider=CartItemsProvider(date:date, items:List.from(widget.items) , total:Provider.of<TotalProvider>(context, listen: false).total);
-                                                PayDialog.historyCarts.add(cartProvider);
+                                                String date =
+                                                    "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}";
+                                                CartItemsProvider cartProvider =
+                                                    CartItemsProvider(
+                                                        date: date,
+                                                        items: List.from(
+                                                            widget.items),
+                                                        total: Provider.of<
+                                                                    TotalProvider>(
+                                                                context,
+                                                                listen: false)
+                                                            .total);
+                                                PayDialog.historyCarts
+                                                    .add(cartProvider);
 
-                                                Provider.of<TotalProvider>(context, listen: false).total=0;
-                                                widget.items.clear();
-                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
+                                                Provider.of<TotalProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .total = 0;
+                                                // widget.items.clear();
+                                                Provider.of<Cartprovider>(
+                                                        context,
+                                                        listen: false)
+                                                    .clearItems();
+
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Home()));
                                               },
                                               child: Text("Ok",
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
-                                                      FontWeight.w600,
+                                                          FontWeight.w600,
                                                       fontSize: 15))),
                                         ],
                                       );
@@ -115,11 +147,11 @@ class _PayDialogState extends State<PayDialog> {
                         TextButton(
                             style: ButtonStyle(
                                 backgroundColor:
-                                MaterialStateProperty.all(Colors.red),
+                                    MaterialStateProperty.all(Colors.red),
                                 shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
                                         borderRadius:
-                                        BorderRadius.circular(20)))),
+                                            BorderRadius.circular(20)))),
                             onPressed: () {
                               Navigator.pop(context);
                             },

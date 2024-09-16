@@ -1,41 +1,19 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
-import 'package:ecommerce/classes/product_search_delegate.dart';
+import 'package:ecommerce/providers/cartProvider.dart';
 import 'package:ecommerce/screens/itemDescription.dart';
-import 'package:ecommerce/screens/signUp.dart';
 import 'package:ecommerce/service/items_service.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
 import '../classes/Item.dart';
 import '../customs/appBar.dart';
 import '../customs/bottomNavigator.dart';
 import '../customs/drawer.dart';
 
-
-class Home extends StatefulWidget {
-  const Home({super.key});
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
+class Home extends StatelessWidget {
   List<Item> items = [];
-  //List<Item> items1 = [];
 
-  //String s="beauty";
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  Future<void> getData() async {
-    items = (await ItemsService().getItems()).cast<Item>();
-   // items1=items..where((Item element)=>element.category==s).toList();
-    setState(() {});
+  Future<List<Item>> getData() async {
+    return (await ItemsService().getItems()).cast<Item>();
   }
 
   Color c = Colors.red;
@@ -45,7 +23,6 @@ class _HomeState extends State<Home> {
     "assets/trendin2.jpg",
     "assets/trendin3.jpg",
     "assets/trendin4.jpg",
-
   ];
 
   @override
@@ -53,8 +30,6 @@ class _HomeState extends State<Home> {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar:getAppBar(title:"Shoppe" ,items: items),
-      drawer: getDrawer(),
       bottomNavigationBar: getBottomNavigator(context, 0),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
@@ -63,20 +38,6 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             /* TextFormField(
-
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  hintText: 'Search...',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20),)
-                ),
-                onChanged: (value) {
-                 showSearch(context: context, delegate: productSearchDelegate());
-                },
-              ),
-              SizedBox(height: 10),
-*/
               Text(
                 "TRENDING",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
@@ -115,27 +76,39 @@ class _HomeState extends State<Home> {
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 10),
-
-              GridView.builder(
-
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.502,
-                  crossAxisSpacing: 12.0,
-                  mainAxisSpacing: 15.0,
-                ),
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: items.length,
-                itemBuilder: (context, index){
-
-                  return ItemsGrid(item: items[index]);
-                }
-              ),
+              FutureBuilder<List<Item>>(
+                  future: getData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error loading items'));
+                    } else if (snapshot.hasData) {
+                      items = snapshot.data!;
+                      return GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.502,
+                            crossAxisSpacing: 12.0,
+                            mainAxisSpacing: 15.0,
+                          ),
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: items.length,
+                          itemBuilder: (context, index) {
+                            return ItemsGrid(item: items[index]);
+                          });
+                    } else {
+                      return Center(child: Text('No items available'));
+                    }
+                  }),
             ],
           ),
         ),
       ),
+      appBar: getAppBar(title: "Shoppe", items: items),
+      drawer: getDrawer(),
     );
   }
 }
@@ -189,13 +162,23 @@ class ItemsGrid extends StatelessWidget {
                   padding: EdgeInsets.only(left: 122, top: 155),
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).primaryColor,
-                    child: IconButton(
-                      onPressed: () {}, // No need for setState
-                      icon: Icon(
-                        Icons.shopping_cart_outlined,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: Consumer<Cartprovider>(
+                        builder: (context, cartProvider, child) {
+                      return IconButton(
+                        onPressed: () {
+                          if (!cartProvider.names.contains(item.title))
+                            cartProvider.addItem(context, item);
+                          else
+                            cartProvider.removeItem(context, item);
+                        }, // No need for setState
+                        icon: Icon(
+                          cartProvider.names.contains(item.title)
+                              ? Icons.shopping_cart
+                              : Icons.shopping_cart_outlined,
+                          color: Colors.white,
+                        ),
+                      );
+                    }),
                   ),
                 )
               ],
@@ -245,7 +228,6 @@ class ItemsGrid extends StatelessWidget {
           ],
         ),
       ),
-
     );
   }
 }

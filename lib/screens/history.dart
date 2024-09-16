@@ -15,7 +15,9 @@ class history extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("My History")),
+      appBar: AppBar(
+          title: Text("My History",style: TextStyle( fontWeight: FontWeight.bold),),
+          centerTitle: true),
       // drawer: getDrawer(),
       bottomNavigationBar: getBottomNavigator(context , 2),
       body:   Column(

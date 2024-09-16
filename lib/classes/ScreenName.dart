@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
-class ScreenName{
+class ScreenName {
   String name;
   Widget screen;
-  ScreenName({required this.name , required this.screen});
+
+  ScreenName({required this.name, required this.screen});
 }
